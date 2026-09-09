@@ -1,0 +1,8 @@
+<odoo noupdate="1">
+    <record id="rasd_symbology_standard_app6e" model="rasd.symbology.standard">
+        <field name="name">NATO Joint Military Symbology</field>
+        <field name="code">APP-6E</field>
+        <field name="edition">E</field>
+        <field name="description">APP-6E-ready symbology profile. Detailed symbol dictionaries are loaded separately from an authorized dataset or renderer.</field>
+    </record>
+</odoo>

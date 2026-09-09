@@ -1,0 +1,7 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_rasd_symbology_standard_user,rasd.symbology.standard user,model_rasd_symbology_standard,base.group_user,1,0,0,0
+access_rasd_track_user,rasd.track user,model_rasd_track,base.group_user,1,1,1,0
+access_rasd_identity_evidence_user,rasd.identity.evidence user,model_rasd_identity_evidence,base.group_user,1,1,1,0
+access_rasd_symbology_standard_admin,rasd.symbology.standard admin,model_rasd_symbology_standard,base.group_system,1,1,1,1
+access_rasd_track_admin,rasd.track admin,model_rasd_track,base.group_system,1,1,1,1
+access_rasd_identity_evidence_admin,rasd.identity.evidence admin,model_rasd_identity_evidence,base.group_system,1,1,1,1
