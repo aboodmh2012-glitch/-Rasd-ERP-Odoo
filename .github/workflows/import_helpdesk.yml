@@ -5,7 +5,7 @@ on:
     branches: ["19.0"]
     paths:
       - ".github/workflows/import_helpdesk.yml"
-      - ".tmp/helpdesk_core.b64"
+      - ".tmp/helpdesk_core.b64.part*"
 
 permissions:
   contents: write
@@ -21,11 +21,13 @@ jobs:
         shell: bash
         run: |
           set -euo pipefail
-          base64 -d .tmp/helpdesk_core.b64 > /tmp/helpdesk_core.zip
+          cat .tmp/helpdesk_core.b64.part* | base64 -d > /tmp/helpdesk_core.zip
+          unzip -tq /tmp/helpdesk_core.zip
           rm -rf custom_addons/helpdesk_community_pro
           unzip -q /tmp/helpdesk_core.zip -d custom_addons
           rm -f custom_addons/helpdesk_community_pro/IMPORT_NOTE.txt
           rm -f .tmp/helpdesk_core.b64
+          rm -f .tmp/helpdesk_core.b64.part*
           rm -f .github/workflows/import_helpdesk.yml
       - name: Commit imported module
         shell: bash
