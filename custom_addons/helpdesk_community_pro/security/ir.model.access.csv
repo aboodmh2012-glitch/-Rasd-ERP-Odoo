@@ -1,0 +1,17 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_helpdesk_stage_user,helpdesk.stage.user,model_helpdesk_stage,group_helpdesk_user,1,0,0,0
+access_helpdesk_stage_manager,helpdesk.stage.manager,model_helpdesk_stage,group_helpdesk_manager,1,1,1,1
+access_helpdesk_tag_user,helpdesk.tag.user,model_helpdesk_tag,group_helpdesk_user,1,1,1,0
+access_helpdesk_tag_manager,helpdesk.tag.manager,model_helpdesk_tag,group_helpdesk_manager,1,1,1,1
+access_helpdesk_team_user,helpdesk.team.user,model_helpdesk_team,group_helpdesk_user,1,0,0,0
+access_helpdesk_team_manager,helpdesk.team.manager,model_helpdesk_team,group_helpdesk_manager,1,1,1,1
+access_helpdesk_ticket_user,helpdesk.ticket.user,model_helpdesk_ticket,group_helpdesk_user,1,1,1,0
+access_helpdesk_ticket_manager,helpdesk.ticket.manager,model_helpdesk_ticket,group_helpdesk_manager,1,1,1,1
+access_helpdesk_sla_user,helpdesk.sla.user,model_helpdesk_sla,group_helpdesk_user,1,0,0,0
+access_helpdesk_sla_manager,helpdesk.sla.manager,model_helpdesk_sla,group_helpdesk_manager,1,1,1,1
+access_helpdesk_ticket_portal,helpdesk.ticket.portal,model_helpdesk_ticket,base.group_portal,1,0,0,0
+access_helpdesk_stage_portal,helpdesk.stage.portal,model_helpdesk_stage,base.group_portal,1,0,0,0
+access_helpdesk_canned_response_user,helpdesk.canned.response.user,model_helpdesk_canned_response,group_helpdesk_user,1,0,0,0
+access_helpdesk_canned_response_manager,helpdesk.canned.response.manager,model_helpdesk_canned_response,group_helpdesk_manager,1,1,1,1
+access_helpdesk_canned_insert_user,helpdesk.canned.insert.user,model_helpdesk_canned_insert,group_helpdesk_user,1,1,1,1
+access_helpdesk_ticket_merge_user,helpdesk.ticket.merge.user,model_helpdesk_ticket_merge,group_helpdesk_user,1,1,1,1

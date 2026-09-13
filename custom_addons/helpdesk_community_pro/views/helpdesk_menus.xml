@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <menuitem id="helpdesk_menu_root" name="Helpdesk" sequence="90"/>
+
+    <menuitem
+        id="helpdesk_menu_tickets"
+        name="Tickets"
+        parent="helpdesk_menu_root"
+        action="helpdesk_ticket_action"
+        sequence="10"
+    />
+
+    <menuitem
+        id="helpdesk_menu_teams"
+        name="Teams"
+        parent="helpdesk_menu_root"
+        action="helpdesk_team_action"
+        sequence="20"
+    />
+
+    <menuitem
+        id="helpdesk_menu_configuration"
+        name="Configuration"
+        parent="helpdesk_menu_root"
+        groups="group_helpdesk_manager"
+        sequence="100"
+    />
+
+    <menuitem
+        id="helpdesk_menu_stages"
+        name="Stages"
+        parent="helpdesk_menu_configuration"
+        action="helpdesk_stage_action"
+        sequence="10"
+    />
+
+    <menuitem
+        id="helpdesk_menu_tags"
+        name="Tags"
+        parent="helpdesk_menu_configuration"
+        action="helpdesk_tag_action"
+        sequence="20"
+    />
+
+    <menuitem
+        id="helpdesk_menu_sla"
+        name="SLA Policies"
+        parent="helpdesk_menu_configuration"
+        action="helpdesk_sla_action"
+        sequence="30"
+    />
+
+    <menuitem
+        id="helpdesk_menu_canned_responses"
+        name="Canned Responses"
+        parent="helpdesk_menu_configuration"
+        action="helpdesk_canned_response_action"
+        sequence="40"
+    />
+</odoo>

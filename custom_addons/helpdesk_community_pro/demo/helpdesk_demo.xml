@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="demo_partner_alice" model="res.partner">
+        <field name="name">Alice Nguyen</field>
+        <field name="email">alice.nguyen@example.com</field>
+    </record>
+    <record id="demo_partner_bruno" model="res.partner">
+        <field name="name">Bruno Costa</field>
+        <field name="email">bruno.costa@example.com</field>
+    </record>
+    <record id="demo_partner_chloe" model="res.partner">
+        <field name="name">Chloe Martin</field>
+        <field name="email">chloe.martin@example.com</field>
+    </record>
+
+    <record id="demo_team_support" model="helpdesk.team">
+        <field name="name">Customer Support</field>
+        <field name="member_ids" eval="[(4, ref('base.user_admin'))]"/>
+    </record>
+    <record id="demo_team_technical" model="helpdesk.team">
+        <field name="name">Technical Support</field>
+        <field name="member_ids" eval="[(4, ref('base.user_admin'))]"/>
+    </record>
+
+    <record id="demo_sla_support_default" model="helpdesk.sla">
+        <field name="name">Standard Support (24h)</field>
+        <field name="team_id" ref="demo_team_support"/>
+        <field name="target_hours">24</field>
+    </record>
+    <record id="demo_sla_support_urgent" model="helpdesk.sla">
+        <field name="name">Urgent Support (4h)</field>
+        <field name="team_id" ref="demo_team_support"/>
+        <field name="priority">3</field>
+        <field name="target_hours">4</field>
+    </record>
+    <record id="demo_sla_technical_default" model="helpdesk.sla">
+        <field name="name">Standard Technical (48h)</field>
+        <field name="team_id" ref="demo_team_technical"/>
+        <field name="target_hours">48</field>
+    </record>
+
+    <record id="demo_canned_welcome" model="helpdesk.canned.response">
+        <field name="name">Acknowledge and investigate</field>
+        <field name="body" type="html">
+<p>Thanks for the details -- I'm looking into this now and will follow up shortly with next steps.</p>
+        </field>
+    </record>
+    <record id="demo_canned_more_info" model="helpdesk.canned.response">
+        <field name="name">Request more information</field>
+        <field name="body" type="html">
+<p>Could you share a few more details (screenshots, steps to reproduce, or account/order reference)? That will help us resolve this faster.</p>
+        </field>
+    </record>
+    <record id="demo_canned_resolved" model="helpdesk.canned.response">
+        <field name="name">Issue resolved</field>
+        <field name="body" type="html">
+<p>This should be resolved now -- please let us know if you run into it again.</p>
+        </field>
+    </record>
+
+    <record id="demo_ticket_login_issue" model="helpdesk.ticket">
+        <field name="name">Cannot log into my account</field>
+        <field name="team_id" ref="demo_team_support"/>
+        <field name="stage_id" ref="helpdesk_community_pro.stage_new"/>
+        <field name="priority">3</field>
+        <field name="partner_id" ref="demo_partner_alice"/>
+        <field name="description" type="html">
+<p>I keep getting "invalid credentials" even after resetting my password twice.</p>
+        </field>
+    </record>
+    <record id="demo_ticket_billing_question" model="helpdesk.ticket">
+        <field name="name">Question about last invoice</field>
+        <field name="team_id" ref="demo_team_support"/>
+        <field name="stage_id" ref="helpdesk_community_pro.stage_in_progress"/>
+        <field name="priority">1</field>
+        <field name="partner_id" ref="demo_partner_bruno"/>
+        <field name="user_id" ref="base.user_admin"/>
+        <field name="assign_date" eval="DateTime.now()"/>
+        <field name="description" type="html">
+<p>The amount on this month's invoice looks higher than usual, could you check it?</p>
+        </field>
+    </record>
+    <record id="demo_ticket_feature_request" model="helpdesk.ticket">
+        <field name="name">Add dark mode to the dashboard</field>
+        <field name="team_id" ref="demo_team_technical"/>
+        <field name="stage_id" ref="helpdesk_community_pro.stage_on_hold"/>
+        <field name="priority">0</field>
+        <field name="partner_id" ref="demo_partner_chloe"/>
+        <field name="description" type="html">
+<p>Not urgent, but a dark theme would be great for the dashboard.</p>
+        </field>
+    </record>
+    <record id="demo_ticket_api_error" model="helpdesk.ticket">
+        <field name="name">API returns 500 on bulk export</field>
+        <field name="team_id" ref="demo_team_technical"/>
+        <field name="stage_id" ref="helpdesk_community_pro.stage_new"/>
+        <field name="priority">2</field>
+        <field name="partner_id" ref="demo_partner_bruno"/>
+        <field name="description" type="html">
+<p>Exporting more than 500 records at once fails with a server error.</p>
+        </field>
+    </record>
+    <record id="demo_ticket_password_reset" model="helpdesk.ticket">
+        <field name="name">Password reset email never arrives</field>
+        <field name="team_id" ref="demo_team_support"/>
+        <field name="stage_id" ref="helpdesk_community_pro.stage_solved"/>
+        <field name="priority">1</field>
+        <field name="partner_id" ref="demo_partner_alice"/>
+        <field name="user_id" ref="base.user_admin"/>
+        <field name="assign_date" eval="DateTime.now() - relativedelta(days=2)"/>
+        <field name="close_date" eval="DateTime.now() - relativedelta(days=1)"/>
+        <field name="rating">good</field>
+        <field name="rating_date" eval="DateTime.now() - relativedelta(days=1)"/>
+        <field name="description" type="html">
+<p>Turned out to be a typo in the customer's email address on file -- corrected and resent.</p>
+        </field>
+    </record>
+    <record id="demo_ticket_export_slow" model="helpdesk.ticket">
+        <field name="name">Report export is very slow</field>
+        <field name="team_id" ref="demo_team_technical"/>
+        <field name="stage_id" ref="helpdesk_community_pro.stage_solved"/>
+        <field name="priority">2</field>
+        <field name="partner_id" ref="demo_partner_chloe"/>
+        <field name="user_id" ref="base.user_admin"/>
+        <field name="assign_date" eval="DateTime.now() - relativedelta(days=4)"/>
+        <field name="close_date" eval="DateTime.now() - relativedelta(days=3)"/>
+        <field name="rating">okay</field>
+        <field name="rating_date" eval="DateTime.now() - relativedelta(days=3)"/>
+        <field name="description" type="html">
+<p>Added an index on the reporting table -- export time is down from ~2 minutes to a few seconds.</p>
+        </field>
+    </record>
+</odoo>

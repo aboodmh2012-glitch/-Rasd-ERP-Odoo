@@ -1,0 +1,1376 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* helpdesk_community_pro
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 19.0-20260630\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-07-19 10:01+0000\n"
+"PO-Revision-Date: 2026-07-19 10:01+0000\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"Language: ar\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: nplurals=6; plural=n==0 ? 0 : n==1 ? 1 : n==2 ? 2 : n%100>=3 && n%100<=10 ? 3 : n%100>=11 && n%100<=99 ? 4 : 5;\n"
+
+#. module: helpdesk_community_pro
+#: model_terms:ir.ui.view,arch_db:helpdesk_community_pro.helpdesk_team_view_kanban
+msgid "<span>Tickets</span>"
+msgstr "<span>التذاكر</span>"
+
+#. module: helpdesk_community_pro
+#: model:mail.template,body_html:helpdesk_community_pro.mail_template_ticket_received
+msgid ""
+"<div>\n"
+"    Hello <t t-out=\"object.partner_name or ''\">there</t>,<br><br>\n"
+"    Thanks for reaching out. We've created ticket <strong t-out=\"object.ref\">TKT/2024/00001</strong>\n"
+"    for \"<t t-out=\"object.name\">your request</t>\" and someone from our team will get back to you shortly.\n"
+"    <br><br>\n"
+"    Helpdesk Team\n"
+"</div>\n"
+"            "
+msgstr ""
+"<div>\n"
+"    مرحباً <t t-out=\"object.partner_name or ''\">بك</t>،<br><br>\n"
+"    شكراً لتواصلك معنا. لقد أنشأنا التذكرة <strong t-out=\"object.ref\">TKT/2024/00001</strong>\n"
+"    الخاصة بـ \"<t t-out=\"object.name\">طلبك</t>\" وسيتواصل معك أحد أعضاء فريقنا في أقرب وقت.\n"
+"    <br><br>\n"
+"    فريق مكتب المساعدة\n"
+"</div>\n"
+"            "
+
+#. module: helpdesk_community_pro
+#: model:mail.template,body_html:helpdesk_community_pro.mail_template_ticket_rating
+msgid ""
+"<div>\n"
+"    Hello <t t-out=\"object.partner_name or ''\">there</t>,<br><br>\n"
+"    We just closed ticket <strong t-out=\"object.ref\">TKT/2024/00001</strong> for\n"
+"    \"<t t-out=\"object.name\">your request</t>\". How did we do?\n"
+"    <br><br>\n"
+"    <table style=\"margin: 0 auto;\">\n"
+"        <tr>\n"
+"            <td style=\"padding: 0 8px;\">\n"
+"                <a t-attf-href=\"#{object.get_base_url()}/helpdesk/rate/#{object.id}/#{object.rating_token}/good\" style=\"background-color:#28a745;color:#fff;padding:10px 18px;border-radius:4px;text-decoration:none;\">Good</a>\n"
+"            </td>\n"
+"            <td style=\"padding: 0 8px;\">\n"
+"                <a t-attf-href=\"#{object.get_base_url()}/helpdesk/rate/#{object.id}/#{object.rating_token}/okay\" style=\"background-color:#ffc107;color:#000;padding:10px 18px;border-radius:4px;text-decoration:none;\">Okay</a>\n"
+"            </td>\n"
+"            <td style=\"padding: 0 8px;\">\n"
+"                <a t-attf-href=\"#{object.get_base_url()}/helpdesk/rate/#{object.id}/#{object.rating_token}/bad\" style=\"background-color:#dc3545;color:#fff;padding:10px 18px;border-radius:4px;text-decoration:none;\">Bad</a>\n"
+"            </td>\n"
+"        </tr>\n"
+"    </table>\n"
+"    <br>\n"
+"    Helpdesk Team\n"
+"</div>\n"
+"            "
+msgstr ""
+"<div>\n"
+"    مرحباً <t t-out=\"object.partner_name or ''\">بك</t>،<br><br>\n"
+"    لقد أغلقنا للتو التذكرة <strong t-out=\"object.ref\">TKT/2024/00001</strong> الخاصة بـ\n"
+"    \"<t t-out=\"object.name\">طلبك</t>\". كيف كانت تجربتك معنا؟\n"
+"    <br><br>\n"
+"    <table style=\"margin: 0 auto;\">\n"
+"        <tr>\n"
+"            <td style=\"padding: 0 8px;\">\n"
+"                <a t-attf-href=\"#{object.get_base_url()}/helpdesk/rate/#{object.id}/#{object.rating_token}/good\" style=\"background-color:#28a745;color:#fff;padding:10px 18px;border-radius:4px;text-decoration:none;\">جيدة</a>\n"
+"            </td>\n"
+"            <td style=\"padding: 0 8px;\">\n"
+"                <a t-attf-href=\"#{object.get_base_url()}/helpdesk/rate/#{object.id}/#{object.rating_token}/okay\" style=\"background-color:#ffc107;color:#000;padding:10px 18px;border-radius:4px;text-decoration:none;\">مقبولة</a>\n"
+"            </td>\n"
+"            <td style=\"padding: 0 8px;\">\n"
+"                <a t-attf-href=\"#{object.get_base_url()}/helpdesk/rate/#{object.id}/#{object.rating_token}/bad\" style=\"background-color:#dc3545;color:#fff;padding:10px 18px;border-radius:4px;text-decoration:none;\">سيئة</a>\n"
+"            </td>\n"
+"        </tr>\n"
+"    </table>\n"
+"    <br>\n"
+"    فريق مكتب المساعدة\n"
+"</div>\n"
+"            "
+
+#. module: helpdesk_community_pro
+#: model:ir.model.fields,help:helpdesk_community_pro.field_helpdesk_team__alias_defaults
+msgid ""
+"A Python dictionary that will be evaluated to provide default values when "
+"creating new records for this alias."
+msgstr "قاموس بايثون سيتم تقييمه لتوفير القيم الافتراضية عند إنشاء سجلات جديدة لهذا الاسم المستعار."
+
+#. module: helpdesk_community_pro
+#: model:ir.model.constraint,message:helpdesk_community_pro.constraint_helpdesk_tag_name_uniq
+msgid "A tag with this name already exists."
+msgstr "يوجد وسم بهذا الاسم بالفعل."
+
+#. module: helpdesk_community_pro
+#: model:ir.model.fields,field_description:helpdesk_community_pro.field_helpdesk_ticket__access_warning
+msgid "Access warning"
+msgstr "تحذير الوصول"
+
+#. module: helpdesk_community_pro
+#: model:ir.model.fields,field_description:helpdesk_community_pro.field_helpdesk_ticket__message_needaction
+msgid "Action Needed"
+msgstr "يتطلب إجراء"
+
+#. module: helpdesk_community_pro
+#: model:ir.model.fields,field_description:helpdesk_community_pro.field_helpdesk_canned_response__active
+#: model:ir.model.fields,field_description:helpdesk_community_pro.field_helpdesk_sla__active
+#: model:ir.model.fields,field_description:helpdesk_community_pro.field_helpdesk_team__active
+#: model:ir.model.fields,field_description:helpdesk_community_pro.field_helpdesk_ticket__active
+msgid "Active"
+msgstr "نشط"
+
+#. module: helpdesk_community_pro
+#: model:ir.model.fields,field_description:helpdesk_community_pro.field_helpdesk_ticket__activity_ids
+msgid "Activities"
+msgstr "الأنشطة"
+
+#. module: helpdesk_community_pro
+#: model:ir.model.fields,field_description:helpdesk_community_pro.field_helpdesk_ticket__activity_exception_decoration
+msgid "Activity Exception Decoration"
+msgstr "زخرفة استثناء النشاط"
+
+#. module: helpdesk_community_pro
+#: model:ir.model.fields,field_description:helpdesk_community_pro.field_helpdesk_ticket__activity_state
+msgid "Activity State"
+msgstr "حالة النشاط"
+
+#. module: helpdesk_community_pro
+#: model:ir.model.fields,field_description:helpdesk_community_pro.field_helpdesk_ticket__activity_type_icon
+msgid "Activity Type Icon"
+msgstr "أيقونة نوع النشاط"
+
+#. module: helpdesk_community_pro
+#: model:ir.model.fields,field_description:helpdesk_community_pro.field_helpdesk_team__alias_id
+msgid "Alias"
+msgstr "الاسم المستعار"
+
+#. module: helpdesk_community_pro
+#: model:ir.model.fields,field_description:helpdesk_community_pro.field_helpdesk_team__alias_contact
+msgid "Alias Contact Security"
+msgstr "أمان جهة اتصال الاسم المستعار"
+
+#. module: helpdesk_community_pro
+#: model:ir.model.fields,field_description:helpdesk_community_pro.field_helpdesk_team__alias_domain_id
+msgid "Alias Domain"
+msgstr "نطاق الاسم المستعار"
+
+#. module: helpdesk_community_pro
+#: model:ir.model.fields,field_description:helpdesk_community_pro.field_helpdesk_team__alias_domain
+msgid "Alias Domain Name"
+msgstr "اسم نطاق الاسم المستعار"
+
+#. module: helpdesk_community_pro
+#: model:ir.model.fields,field_description:helpdesk_community_pro.field_helpdesk_team__alias_full_name
+msgid "Alias Email"
+msgstr "البريد الإلكتروني للاسم المستعار"
+
+#. module: helpdesk_community_pro
+#: model:ir.model.fields,field_description:helpdesk_community_pro.field_helpdesk_team__alias_name
+msgid "Alias Name"
+msgstr "اسم الاسم المستعار"
+
+#. module: helpdesk_community_pro
+#: model:ir.model.fields,field_description:helpdesk_community_pro.field_helpdesk_team__alias_status
+msgid "Alias Status"
+msgstr "حالة الاسم المستعار"
+
+#. module: helpdesk_community_pro
+#: model:ir.model.fields,help:helpdesk_community_pro.field_helpdesk_team__alias_status
+msgid "Alias status assessed on the last message received."
+msgstr "تم تقييم حالة الاسم المستعار بناءً على آخر رسالة تم استلامها."
+
+#. module: helpdesk_community_pro
+#: model:ir.model.fields,field_description:helpdesk_community_pro.field_helpdesk_team__alias_model_id
+msgid "Aliased Model"
+msgstr "النموذج المستعار"
+
+#. module: helpdesk_community_pro
+#: model_terms:ir.ui.view,arch_db:helpdesk_community_pro.helpdesk_ticket_view_search
+msgid "Archived"
+msgstr "مؤرشف"
+
+#. module: helpdesk_community_pro
+#: model:ir.model.fields,field_description:helpdesk_community_pro.field_helpdesk_ticket__assign_date
+msgid "Assign Date"
+msgstr "تاريخ الإسناد"
+
+#. module: helpdesk_community_pro
+#: model:ir.model.fields,field_description:helpdesk_community_pro.field_helpdesk_ticket__user_id
+msgid "Assigned to"
+msgstr "مسندة إلى"
+
+#. module: helpdesk_community_pro
+#: model_terms:ir.ui.view,arch_db:helpdesk_community_pro.helpdesk_ticket_view_search
+msgid "Assignee"
+msgstr "المسؤول"
+
+#. module: helpdesk_community_pro
+#: model:ir.model.fields.selection,name:helpdesk_community_pro.selection__helpdesk_ticket__sla_status__at_risk
+msgid "At Risk"
+msgstr "معرضة للخطر"
+
+#. module: helpdesk_community_pro
+#: model:ir.model.fields,field_description:helpdesk_community_pro.field_helpdesk_ticket__message_attachment_count
+msgid "Attachment Count"
+msgstr "عدد المرفقات"
+
+#. module: helpdesk_community_pro
+#: model:ir.model.fields,help:helpdesk_community_pro.field_helpdesk_team__avg_resolution_hours
+msgid ""
+"Average calendar-aware working hours from creation to close over this team's"
+" closed tickets."
+msgstr "متوسط ساعات العمل (باحتساب التقويم) من الإنشاء حتى الإغلاق لتذاكر هذا الفريق المغلقة."
+
+#. module: helpdesk_community_pro
+#: model:ir.model.fields,help:helpdesk_community_pro.field_helpdesk_team__csat_avg
+msgid ""
+"Average satisfaction score (Good=100 / Okay=50 / Bad=0) over this team's "
+"rated tickets."
+msgstr "متوسط درجة الرضا (جيدة=100 / مقبولة=50 / سيئة=0) لتذاكر هذا الفريق التي تم تقييمها."
+
+#. module: helpdesk_community_pro
+#: model:ir.model.fields,field_description:helpdesk_community_pro.field_helpdesk_team__avg_resolution_hours
+#: model_terms:ir.ui.view,arch_db:helpdesk_community_pro.helpdesk_team_view_form
+msgid "Avg. Resolution (h)"
+msgstr "متوسط الحل (ساعة)"
+
+#. module: helpdesk_community_pro
+#: model:ir.model.fields.selection,name:helpdesk_community_pro.selection__helpdesk_ticket__rating__bad
+msgid "Bad"
+msgstr "سيئة"
+
+#. module: helpdesk_community_pro
+#: model:ir.model.fields,field_description:helpdesk_community_pro.field_helpdesk_canned_response__body
+msgid "Body"
+msgstr "المحتوى"
+
+#. module: helpdesk_community_pro
+#. odoo-python
+#: code:addons/helpdesk_community_pro/wizard/helpdesk_ticket_merge.py:0
+#, python-format
+msgid "Both tickets must be open to merge."
+msgstr "يجب أن تكون كلتا التذكرتين مفتوحتين لإتمام الدمج."
+
+#. module: helpdesk_community_pro
+#: model:ir.model.fields.selection,name:helpdesk_community_pro.selection__helpdesk_ticket__sla_status__breached
+msgid "Breached"
+msgstr "متجاوزة"
+
+#. module: helpdesk_community_pro
+#: model:ir.model.fields,field_description:helpdesk_community_pro.field_helpdesk_team__csat_avg
+#: model_terms:ir.ui.view,arch_db:helpdesk_community_pro.helpdesk_team_view_form
+msgid "CSAT"
+msgstr "رضا العملاء"
+
+#. module: helpdesk_community_pro
+#: model:ir.model.fields,help:helpdesk_community_pro.field_helpdesk_ticket__open_hours
+msgid ""
+"Calendar-aware working hours elapsed since creation. Frozen once the ticket "
+"reaches a closed stage."
+msgstr "ساعات العمل (باحتساب التقويم) المنقضية منذ الإنشاء. تتجمد بمجرد وصول التذكرة إلى مرحلة مغلقة."
+
+#. module: helpdesk_community_pro
+#: model:ir.model.fields,help:helpdesk_community_pro.field_helpdesk_ticket__resolution_hours
+msgid ""
+"Calendar-aware working hours from creation to close_date. Zero while the "
+"ticket has never been closed."
+msgstr "ساعات العمل (باحتساب التقويم) من الإنشاء حتى تاريخ الإغلاق. تبقى صفراً ما لم يتم إغلاق التذكرة."
+
+#. module: helpdesk_community_pro
+#: model_terms:ir.ui.view,arch_db:helpdesk_community_pro.helpdesk_canned_insert_view_form
+#: model_terms:ir.ui.view,arch_db:helpdesk_community_pro.helpdesk_ticket_merge_view_form
+msgid "Cancel"
+msgstr "إلغاء"
+
+#. module: helpdesk_community_pro
+#: model:helpdesk.stage,name:helpdesk_community_pro.stage_cancelled
+msgid "Cancelled"
+msgstr "ملغاة"
+
+#. module: helpdesk_community_pro
+#: model:ir.model.fields,field_description:helpdesk_community_pro.field_helpdesk_canned_insert__canned_response_id
+#: model_terms:ir.ui.view,arch_db:helpdesk_community_pro.helpdesk_canned_response_view_form
+msgid "Canned Response"
+msgstr "رد جاهز"
+
+#. module: helpdesk_community_pro
+#: model:ir.actions.act_window,name:helpdesk_community_pro.helpdesk_canned_response_action
+#: model:ir.ui.menu,name:helpdesk_community_pro.helpdesk_menu_canned_responses
+#: model_terms:ir.ui.view,arch_db:helpdesk_community_pro.helpdesk_canned_response_view_list
+msgid "Canned Responses"
+msgstr "الردود الجاهزة"
+
+#. module: helpdesk_community_pro
+#. odoo-python
+#: code:addons/helpdesk_community_pro/wizard/helpdesk_ticket_merge.py:0
+#, python-format
+msgid "Cannot merge a ticket into itself."
+msgstr "لا يمكن دمج التذكرة في نفسها."
+
+#. module: helpdesk_community_pro
+#: model:ir.model.fields,field_description:helpdesk_community_pro.field_helpdesk_ticket__close_date
+msgid "Close Date"
+msgstr "تاريخ الإغلاق"
+
+#. module: helpdesk_community_pro
+#: model:ir.model.fields,field_description:helpdesk_community_pro.field_helpdesk_stage__is_closed
+msgid "Closing Stage"
+msgstr "مرحلة الإغلاق"
+
+#. module: helpdesk_community_pro
+#: model:ir.model.fields,field_description:helpdesk_community_pro.field_helpdesk_tag__color
+#: model:ir.model.fields,field_description:helpdesk_community_pro.field_helpdesk_team__color
+#: model:ir.model.fields,field_description:helpdesk_community_pro.field_helpdesk_ticket__color
+msgid "Color Index"
+msgstr "فهرس اللون"
+
+#. module: helpdesk_community_pro
+#: model_terms:ir.ui.view,arch_db:helpdesk_community_pro.portal_ticket_page
+msgid "Communication history"
+msgstr "سجل المراسلات"
+
+#. module: helpdesk_community_pro
+#: model:ir.model.fields,field_description:helpdesk_community_pro.field_helpdesk_sla__company_id
+#: model:ir.model.fields,field_description:helpdesk_community_pro.field_helpdesk_team__company_id
+#: model:ir.model.fields,field_description:helpdesk_community_pro.field_helpdesk_ticket__company_id
+msgid "Company"
+msgstr "الشركة"
+
+#. module: helpdesk_community_pro
+#: model:ir.ui.menu,name:helpdesk_community_pro.helpdesk_menu_configuration
+msgid "Configuration"
+msgstr "الإعدادات"
+
+#. module: helpdesk_community_pro
+#: model_terms:ir.ui.view,arch_db:helpdesk_community_pro.helpdesk_team_view_form
+msgid "Create tickets by sending an email to"
+msgstr "أنشئ تذاكر عن طريق إرسال بريد إلكتروني إلى"
+
+#. module: helpdesk_community_pro
+#: model_terms:ir.actions.act_window,help:helpdesk_community_pro.helpdesk_sla_action
+msgid "Create your first SLA policy"
+msgstr "أنشئ سياسة اتفاقية مستوى الخدمة الأولى"
+
+#. module: helpdesk_community_pro
+#: model_terms:ir.actions.act_window,help:helpdesk_community_pro.helpdesk_canned_response_action
+msgid "Create your first canned response"
+msgstr "أنشئ ردك الجاهز الأول"
+
+#. module: helpdesk_community_pro
+#: model_terms:ir.actions.act_window,help:helpdesk_community_pro.helpdesk_team_action
+msgid "Create your first helpdesk team"
+msgstr "أنشئ فريق مكتب المساعدة الأول"
+
+#. module: helpdesk_community_pro
+#: model_terms:ir.actions.act_window,help:helpdesk_community_pro.helpdesk_ticket_action
+msgid "Create your first helpdesk ticket"
+msgstr "أنشئ تذكرة مكتب المساعدة الأولى"
+
+#. module: helpdesk_community_pro
+#: model:ir.model.fields,field_description:helpdesk_community_pro.field_helpdesk_canned_insert__create_uid
+#: model:ir.model.fields,field_description:helpdesk_community_pro.field_helpdesk_canned_response__create_uid
+#: model:ir.model.fields,field_description:helpdesk_community_pro.field_helpdesk_sla__create_uid
+#: model:ir.model.fields,field_description:helpdesk_community_pro.field_helpdesk_stage__create_uid
+#: model:ir.model.fields,field_description:helpdesk_community_pro.field_helpdesk_tag__create_uid
+#: model:ir.model.fields,field_description:helpdesk_community_pro.field_helpdesk_team__create_uid
+#: model:ir.model.fields,field_description:helpdesk_community_pro.field_helpdesk_ticket__create_uid
+#: model:ir.model.fields,field_description:helpdesk_community_pro.field_helpdesk_ticket_merge__create_uid
+msgid "Created by"
+msgstr "أنشئ بواسطة"
+
+#. module: helpdesk_community_pro
+#: model:ir.model.fields,field_description:helpdesk_community_pro.field_helpdesk_canned_insert__create_date
+#: model:ir.model.fields,field_description:helpdesk_community_pro.field_helpdesk_canned_response__create_date
+#: model:ir.model.fields,field_description:helpdesk_community_pro.field_helpdesk_sla__create_date
+#: model:ir.model.fields,field_description:helpdesk_community_pro.field_helpdesk_stage__create_date
+#: model:ir.model.fields,field_description:helpdesk_community_pro.field_helpdesk_tag__create_date
+#: model:ir.model.fields,field_description:helpdesk_community_pro.field_helpdesk_team__create_date
+#: model:ir.model.fields,field_description:helpdesk_community_pro.field_helpdesk_ticket__create_date
+#: model:ir.model.fields,field_description:helpdesk_community_pro.field_helpdesk_ticket_merge__create_date
+msgid "Created on"
+msgstr "أنشئ في"
+
+#. module: helpdesk_community_pro
+#: model:ir.model.fields,field_description:helpdesk_community_pro.field_helpdesk_team__csat_enabled
+msgid "Csat Enabled"
+msgstr "تفعيل رضا العملاء"
+
+#. module: helpdesk_community_pro
+#: model:ir.model.fields,field_description:helpdesk_community_pro.field_helpdesk_team__alias_bounced_content
+msgid "Custom Bounced Message"
+msgstr "رسالة الارتداد المخصصة"
+
+#. module: helpdesk_community_pro
+#: model:ir.model.fields,field_description:helpdesk_community_pro.field_helpdesk_ticket__partner_id
+msgid "Customer"
+msgstr "العميل"
+
+#. module: helpdesk_community_pro
+#: model:ir.model.fields,field_description:helpdesk_community_pro.field_helpdesk_ticket__partner_email
+msgid "Customer Email"
+msgstr "البريد الإلكتروني للعميل"
+
+#. module: helpdesk_community_pro
+#: model:ir.model.fields,field_description:helpdesk_community_pro.field_helpdesk_ticket__partner_name
+msgid "Customer Name"
+msgstr "اسم العميل"
+
+#. module: helpdesk_community_pro
+#: model:ir.model.fields,help:helpdesk_community_pro.field_helpdesk_ticket__access_url
+msgid "Customer Portal URL"
+msgstr "رابط بوابة العميل"
+
+#. module: helpdesk_community_pro
+#: model:ir.model.fields,field_description:helpdesk_community_pro.field_helpdesk_team__alias_defaults
+msgid "Default Values"
+msgstr "القيم الافتراضية"
+
+#. module: helpdesk_community_pro
+#: model:ir.model.fields,field_description:helpdesk_community_pro.field_helpdesk_ticket__description
+#: model_terms:ir.ui.view,arch_db:helpdesk_community_pro.helpdesk_ticket_view_form
+msgid "Description"
+msgstr "الوصف"
+
+#. module: helpdesk_community_pro
+#: model:ir.model.fields,field_description:helpdesk_community_pro.field_helpdesk_canned_insert__display_name
+#: model:ir.model.fields,field_description:helpdesk_community_pro.field_helpdesk_canned_response__display_name
+#: model:ir.model.fields,field_description:helpdesk_community_pro.field_helpdesk_sla__display_name
+#: model:ir.model.fields,field_description:helpdesk_community_pro.field_helpdesk_stage__display_name
+#: model:ir.model.fields,field_description:helpdesk_community_pro.field_helpdesk_tag__display_name
+#: model:ir.model.fields,field_description:helpdesk_community_pro.field_helpdesk_team__display_name
+#: model:ir.model.fields,field_description:helpdesk_community_pro.field_helpdesk_ticket__display_name
+#: model:ir.model.fields,field_description:helpdesk_community_pro.field_helpdesk_ticket_merge__display_name
+msgid "Display Name"
+msgstr "الاسم المعروض"
+
+#. module: helpdesk_community_pro
+#: model:ir.model.fields,field_description:helpdesk_community_pro.field_helpdesk_team__alias_email
+#: model_terms:ir.ui.view,arch_db:helpdesk_community_pro.helpdesk_team_view_form
+msgid "Email Alias"
+msgstr "الاسم المستعار للبريد الإلكتروني"
+
+#. module: helpdesk_community_pro
+#: model:ir.model.fields,field_description:helpdesk_community_pro.field_helpdesk_stage__mail_template_id
+msgid "Email Template"
+msgstr "قالب البريد الإلكتروني"
+
+#. module: helpdesk_community_pro
+#: model:ir.model.fields,help:helpdesk_community_pro.field_helpdesk_stage__mail_template_id
+msgid ""
+"Email automatically sent to the customer when a ticket enters this stage."
+msgstr "بريد إلكتروني يُرسل تلقائياً إلى العميل عند دخول التذكرة إلى هذه المرحلة."
+
+#. module: helpdesk_community_pro
+#: model:ir.model.fields,help:helpdesk_community_pro.field_helpdesk_team__alias_domain
+msgid "Email domain e.g. 'example.com' in 'odoo@example.com'"
+msgstr "نطاق البريد الإلكتروني، مثال: 'example.com' في 'odoo@example.com'"
+
+#. module: helpdesk_community_pro
+#: model:ir.model.fields,help:helpdesk_community_pro.field_helpdesk_ticket__rating
+msgid "Empty until the customer rates the ticket."
+msgstr "يبقى فارغاً إلى أن يقوم العميل بتقييم التذكرة."
+
+#. module: helpdesk_community_pro
+#: model_terms:ir.ui.view,arch_db:helpdesk_community_pro.rating_feedback_page
+msgid "Feedback for ticket"
+msgstr "التقييم الخاص بالتذكرة"
+
+#. module: helpdesk_community_pro
+#: model:ir.model.fields,field_description:helpdesk_community_pro.field_helpdesk_stage__fold
+msgid "Folded in Kanban"
+msgstr "مطوية في عرض كانبان"
+
+#. module: helpdesk_community_pro
+#: model_terms:ir.ui.view,arch_db:helpdesk_community_pro.portal_my_home_ticket
+msgid "Follow, review and reply to your support tickets"
+msgstr "تابع وراجع تذاكر الدعم الخاصة بك ورُدّ عليها"
+
+#. module: helpdesk_community_pro
+#: model:ir.model.fields,field_description:helpdesk_community_pro.field_helpdesk_ticket__message_follower_ids
+msgid "Followers"
+msgstr "المتابعون"
+
+#. module: helpdesk_community_pro
+#: model:ir.model.fields,field_description:helpdesk_community_pro.field_helpdesk_ticket__message_partner_ids
+msgid "Followers (Partners)"
+msgstr "المتابعون (الشركاء)"
+
+#. module: helpdesk_community_pro
+#: model:ir.model.fields,help:helpdesk_community_pro.field_helpdesk_ticket__activity_type_icon
+msgid "Font awesome icon e.g. fa-tasks"
+msgstr "أيقونة Font Awesome، مثال: fa-tasks"
+
+#. module: helpdesk_community_pro
+#: model:ir.model.fields,help:helpdesk_community_pro.field_helpdesk_ticket__sla_status
+msgid "Frozen once the ticket reaches a closed stage."
+msgstr "تتجمد بمجرد وصول التذكرة إلى مرحلة مغلقة."
+
+#. module: helpdesk_community_pro
+#: model:ir.model.fields.selection,name:helpdesk_community_pro.selection__helpdesk_ticket__rating__good
+msgid "Good"
+msgstr "جيدة"
+
+#. module: helpdesk_community_pro
+#: model:ir.model.fields,field_description:helpdesk_community_pro.field_helpdesk_ticket__has_message
+msgid "Has Message"
+msgstr "يحتوي على رسالة"
+
+#. module: helpdesk_community_pro
+#: model:ir.module.category,name:helpdesk_community_pro.module_category_helpdesk
+#: model:ir.ui.menu,name:helpdesk_community_pro.helpdesk_menu_root
+msgid "Helpdesk"
+msgstr "مكتب المساعدة"
+
+#. module: helpdesk_community_pro
+#: model:ir.model,name:helpdesk_community_pro.model_helpdesk_canned_response
+msgid "Helpdesk Canned Response"
+msgstr "رد جاهز لمكتب المساعدة"
+
+#. module: helpdesk_community_pro
+#: model_terms:ir.ui.view,arch_db:helpdesk_community_pro.rating_feedback_page
+msgid "Helpdesk Pro"
+msgstr "مكتب المساعدة برو"
+
+#. module: helpdesk_community_pro
+#: model:ir.model,name:helpdesk_community_pro.model_helpdesk_sla
+msgid "Helpdesk SLA Policy"
+msgstr "سياسة اتفاقية مستوى الخدمة لمكتب المساعدة"
+
+#. module: helpdesk_community_pro
+#: model:ir.model,name:helpdesk_community_pro.model_helpdesk_stage
+msgid "Helpdesk Stage"
+msgstr "مرحلة مكتب المساعدة"
+
+#. module: helpdesk_community_pro
+#: model:ir.model,name:helpdesk_community_pro.model_helpdesk_team
+#: model_terms:ir.ui.view,arch_db:helpdesk_community_pro.helpdesk_team_view_form
+msgid "Helpdesk Team"
+msgstr "فريق مكتب المساعدة"
+
+#. module: helpdesk_community_pro
+#: model:ir.model,name:helpdesk_community_pro.model_helpdesk_ticket
+msgid "Helpdesk Ticket"
+msgstr "تذكرة مكتب المساعدة"
+
+#. module: helpdesk_community_pro
+#: model:ir.model,name:helpdesk_community_pro.model_helpdesk_tag
+msgid "Helpdesk Ticket Tag"
+msgstr "وسم تذكرة مكتب المساعدة"
+
+#. module: helpdesk_community_pro
+#: model:mail.template,name:helpdesk_community_pro.mail_template_ticket_rating
+msgid "Helpdesk: Ticket Rating Request"
+msgstr "مكتب المساعدة: طلب تقييم التذكرة"
+
+#. module: helpdesk_community_pro
+#: model:mail.template,name:helpdesk_community_pro.mail_template_ticket_received
+msgid "Helpdesk: Ticket Received"
+msgstr "مكتب المساعدة: تم استلام التذكرة"
+
+#. module: helpdesk_community_pro
+#: model:ir.actions.server,name:helpdesk_community_pro.ir_cron_helpdesk_open_hours_ir_actions_server
+msgid "Helpdesk: Update Open Hours"
+msgstr "مكتب المساعدة: تحديث ساعات الفتح"
+
+#. module: helpdesk_community_pro
+#: model:ir.actions.server,name:helpdesk_community_pro.ir_cron_helpdesk_sla_status_ir_actions_server
+msgid "Helpdesk: Update SLA Status"
+msgstr "مكتب المساعدة: تحديث حالة اتفاقية مستوى الخدمة"
+
+#. module: helpdesk_community_pro
+#: model:ir.model.fields.selection,name:helpdesk_community_pro.selection__helpdesk_sla__priority__2
+#: model:ir.model.fields.selection,name:helpdesk_community_pro.selection__helpdesk_ticket__priority__2
+msgid "High"
+msgstr "عالية"
+
+#. module: helpdesk_community_pro
+#: model:mail.template,subject:helpdesk_community_pro.mail_template_ticket_rating
+msgid "How did we do? ({{ object.ref }})"
+msgstr "كيف كانت تجربتك معنا؟ ({{ object.ref }})"
+
+#. module: helpdesk_community_pro
+#: model:ir.model.fields,field_description:helpdesk_community_pro.field_helpdesk_canned_insert__id
+#: model:ir.model.fields,field_description:helpdesk_community_pro.field_helpdesk_canned_response__id
+#: model:ir.model.fields,field_description:helpdesk_community_pro.field_helpdesk_sla__id
+#: model:ir.model.fields,field_description:helpdesk_community_pro.field_helpdesk_stage__id
+#: model:ir.model.fields,field_description:helpdesk_community_pro.field_helpdesk_tag__id
+#: model:ir.model.fields,field_description:helpdesk_community_pro.field_helpdesk_team__id
+#: model:ir.model.fields,field_description:helpdesk_community_pro.field_helpdesk_ticket__id
+#: model:ir.model.fields,field_description:helpdesk_community_pro.field_helpdesk_ticket_merge__id
+msgid "ID"
+msgstr "المعرّف"
+
+#. module: helpdesk_community_pro
+#: model:ir.model.fields,help:helpdesk_community_pro.field_helpdesk_team__alias_parent_thread_id
+msgid ""
+"ID of the parent record holding the alias (example: project holding the task"
+" creation alias)"
+msgstr "معرّف السجل الأصل الذي يحمل الاسم المستعار (مثال: مشروع يحمل اسم إنشاء المهام المستعار)"
+
+#. module: helpdesk_community_pro
+#: model:ir.model.fields,field_description:helpdesk_community_pro.field_helpdesk_ticket__activity_exception_icon
+msgid "Icon"
+msgstr "الأيقونة"
+
+#. module: helpdesk_community_pro
+#: model:ir.model.fields,help:helpdesk_community_pro.field_helpdesk_ticket__activity_exception_icon
+msgid "Icon to indicate an exception activity."
+msgstr "أيقونة للإشارة إلى نشاط استثنائي."
+
+#. module: helpdesk_community_pro
+#: model:ir.model.fields,help:helpdesk_community_pro.field_helpdesk_ticket__message_needaction
+msgid "If checked, new messages require your attention."
+msgstr "إذا تم التحديد، فإن الرسائل الجديدة تتطلب انتباهك."
+
+#. module: helpdesk_community_pro
+#: model:ir.model.fields,help:helpdesk_community_pro.field_helpdesk_ticket__message_has_error
+#: model:ir.model.fields,help:helpdesk_community_pro.field_helpdesk_ticket__message_has_sms_error
+msgid "If checked, some messages have a delivery error."
+msgstr "إذا تم التحديد، فإن بعض الرسائل بها خطأ في التسليم."
+
+#. module: helpdesk_community_pro
+#: model:ir.model.fields,help:helpdesk_community_pro.field_helpdesk_team__alias_bounced_content
+msgid ""
+"If set, this content will automatically be sent out to unauthorized users "
+"instead of the default message."
+msgstr "إذا تم تعيينه، سيُرسل هذا المحتوى تلقائياً إلى المستخدمين غير المصرح لهم بدلاً من الرسالة الافتراضية."
+
+#. module: helpdesk_community_pro
+#: model:helpdesk.stage,name:helpdesk_community_pro.stage_in_progress
+msgid "In Progress"
+msgstr "قيد التنفيذ"
+
+#. module: helpdesk_community_pro
+#: model:ir.model.fields,help:helpdesk_community_pro.field_helpdesk_team__alias_id
+msgid ""
+"Incoming emails to this address become tickets for this team; replies thread"
+" into the ticket's chatter."
+msgstr "تتحول الرسائل الواردة إلى هذا العنوان إلى تذاكر لهذا الفريق؛ وتُضاف الردود إلى محادثة التذكرة."
+
+#. module: helpdesk_community_pro
+#: model_terms:ir.ui.view,arch_db:helpdesk_community_pro.helpdesk_canned_insert_view_form
+msgid "Insert"
+msgstr "إدراج"
+
+#. module: helpdesk_community_pro
+#: model:ir.actions.act_window,name:helpdesk_community_pro.helpdesk_canned_insert_action
+#: model:ir.model,name:helpdesk_community_pro.model_helpdesk_canned_insert
+#: model_terms:ir.ui.view,arch_db:helpdesk_community_pro.helpdesk_canned_insert_view_form
+#: model_terms:ir.ui.view,arch_db:helpdesk_community_pro.helpdesk_ticket_view_form
+msgid "Insert Canned Response"
+msgstr "إدراج رد جاهز"
+
+#. module: helpdesk_community_pro
+#: model:ir.model.fields,field_description:helpdesk_community_pro.field_helpdesk_ticket__message_is_follower
+msgid "Is Follower"
+msgstr "متابع"
+
+#. module: helpdesk_community_pro
+#: model_terms:ir.ui.view,arch_db:helpdesk_community_pro.rating_feedback_page
+msgid ""
+"It may have expired or been used incorrectly.\n"
+"                            Please contact us if you need help."
+msgstr ""
+"قد يكون الرابط منتهي الصلاحية أو تم استخدامه بشكل غير صحيح.\n"
+"                            يرجى التواصل معنا إذا كنت بحاجة إلى مساعدة."
+
+#. module: helpdesk_community_pro
+#: model:ir.model.fields,field_description:helpdesk_community_pro.field_helpdesk_canned_insert__write_uid
+#: model:ir.model.fields,field_description:helpdesk_community_pro.field_helpdesk_canned_response__write_uid
+#: model:ir.model.fields,field_description:helpdesk_community_pro.field_helpdesk_sla__write_uid
+#: model:ir.model.fields,field_description:helpdesk_community_pro.field_helpdesk_stage__write_uid
+#: model:ir.model.fields,field_description:helpdesk_community_pro.field_helpdesk_tag__write_uid
+#: model:ir.model.fields,field_description:helpdesk_community_pro.field_helpdesk_team__write_uid
+#: model:ir.model.fields,field_description:helpdesk_community_pro.field_helpdesk_ticket__write_uid
+#: model:ir.model.fields,field_description:helpdesk_community_pro.field_helpdesk_ticket_merge__write_uid
+msgid "Last Updated by"
+msgstr "آخر تحديث بواسطة"
+
+#. module: helpdesk_community_pro
+#: model:ir.model.fields,field_description:helpdesk_community_pro.field_helpdesk_canned_insert__write_date
+#: model:ir.model.fields,field_description:helpdesk_community_pro.field_helpdesk_canned_response__write_date
+#: model:ir.model.fields,field_description:helpdesk_community_pro.field_helpdesk_sla__write_date
+#: model:ir.model.fields,field_description:helpdesk_community_pro.field_helpdesk_stage__write_date
+#: model:ir.model.fields,field_description:helpdesk_community_pro.field_helpdesk_tag__write_date
+#: model:ir.model.fields,field_description:helpdesk_community_pro.field_helpdesk_team__write_date
+#: model:ir.model.fields,field_description:helpdesk_community_pro.field_helpdesk_ticket__write_date
+#: model:ir.model.fields,field_description:helpdesk_community_pro.field_helpdesk_ticket_merge__write_date
+msgid "Last Updated on"
+msgstr "آخر تحديث في"
+
+#. module: helpdesk_community_pro
+#: model:ir.model.fields,help:helpdesk_community_pro.field_helpdesk_canned_response__team_ids
+msgid "Leave empty to make this response available to every team."
+msgstr "اتركه فارغاً لجعل هذا الرد متاحاً لجميع الفرق."
+
+#. module: helpdesk_community_pro
+#: model:ir.model.fields,help:helpdesk_community_pro.field_helpdesk_sla__priority
+msgid "Leave empty to match any priority."
+msgstr "اتركه فارغاً لمطابقة أي أولوية."
+
+#. module: helpdesk_community_pro
+#: model:ir.model.fields,help:helpdesk_community_pro.field_helpdesk_sla__tag_id
+msgid "Leave empty to match tickets with any (or no) tags."
+msgstr "اتركه فارغاً لمطابقة التذاكر بأي وسم (أو بدون وسم)."
+
+#. module: helpdesk_community_pro
+#: model:ir.model.fields,field_description:helpdesk_community_pro.field_helpdesk_team__alias_incoming_local
+msgid "Local-part based incoming detection"
+msgstr "الكشف عن الوارد بناءً على الجزء المحلي"
+
+#. module: helpdesk_community_pro
+#: model:ir.model.fields.selection,name:helpdesk_community_pro.selection__helpdesk_sla__priority__0
+#: model:ir.model.fields.selection,name:helpdesk_community_pro.selection__helpdesk_ticket__priority__0
+msgid "Low"
+msgstr "منخفضة"
+
+#. module: helpdesk_community_pro
+#: model:res.groups,name:helpdesk_community_pro.group_helpdesk_manager
+msgid "Manager"
+msgstr "مدير"
+
+#. module: helpdesk_community_pro
+#: model:ir.model.fields.selection,name:helpdesk_community_pro.selection__helpdesk_sla__priority__1
+#: model:ir.model.fields.selection,name:helpdesk_community_pro.selection__helpdesk_ticket__priority__1
+msgid "Medium"
+msgstr "متوسطة"
+
+#. module: helpdesk_community_pro
+#: model_terms:ir.ui.view,arch_db:helpdesk_community_pro.helpdesk_ticket_merge_view_form
+#: model_terms:ir.ui.view,arch_db:helpdesk_community_pro.helpdesk_ticket_view_form
+msgid "Merge"
+msgstr "دمج"
+
+#. module: helpdesk_community_pro
+#: model:ir.model,name:helpdesk_community_pro.model_helpdesk_ticket_merge
+msgid "Merge Helpdesk Tickets"
+msgstr "دمج تذاكر مكتب المساعدة"
+
+#. module: helpdesk_community_pro
+#: model:ir.model.fields,field_description:helpdesk_community_pro.field_helpdesk_ticket_merge__destination_ticket_id
+msgid "Merge Into"
+msgstr "الدمج في"
+
+#. module: helpdesk_community_pro
+#: model:ir.actions.act_window,name:helpdesk_community_pro.helpdesk_ticket_merge_action
+#: model_terms:ir.ui.view,arch_db:helpdesk_community_pro.helpdesk_ticket_merge_view_form
+msgid "Merge Ticket"
+msgstr "دمج التذكرة"
+
+#. module: helpdesk_community_pro
+#. odoo-python
+#: code:addons/helpdesk_community_pro/wizard/helpdesk_ticket_merge.py:0
+#, python-format
+msgid "Merged into %(ref)s."
+msgstr "تم الدمج في %(ref)s."
+
+#. module: helpdesk_community_pro
+#. odoo-python
+#: code:addons/helpdesk_community_pro/wizard/helpdesk_ticket_merge.py:0
+#, python-format
+msgid "Merged ticket %(ref)s into this one."
+msgstr "تم دمج التذكرة %(ref)s في هذه التذكرة."
+
+#. module: helpdesk_community_pro
+#: model:ir.model.fields,field_description:helpdesk_community_pro.field_helpdesk_ticket__message_has_error
+msgid "Message Delivery error"
+msgstr "خطأ في تسليم الرسالة"
+
+#. module: helpdesk_community_pro
+#: model:ir.model.fields,field_description:helpdesk_community_pro.field_helpdesk_ticket__message_ids
+msgid "Messages"
+msgstr "الرسائل"
+
+#. module: helpdesk_community_pro
+#: model:ir.model.fields,help:helpdesk_community_pro.field_helpdesk_ticket__sla_id
+msgid ""
+"Most specific active policy matching this ticket's team, priority and tags."
+msgstr "أكثر سياسة نشطة تحديداً تطابق فريق هذه التذكرة وأولويتها ووسومها."
+
+#. module: helpdesk_community_pro
+#: model:ir.model.fields,field_description:helpdesk_community_pro.field_helpdesk_ticket__my_activity_date_deadline
+msgid "My Activity Deadline"
+msgstr "الموعد النهائي لنشاطي"
+
+#. module: helpdesk_community_pro
+#: model_terms:ir.ui.view,arch_db:helpdesk_community_pro.helpdesk_ticket_view_search
+msgid "My Tickets"
+msgstr "تذاكري"
+
+#. module: helpdesk_community_pro
+#: model:ir.model.fields,field_description:helpdesk_community_pro.field_helpdesk_canned_response__name
+#: model:ir.model.fields,field_description:helpdesk_community_pro.field_helpdesk_sla__name
+#: model:ir.model.fields,field_description:helpdesk_community_pro.field_helpdesk_stage__name
+#: model:ir.model.fields,field_description:helpdesk_community_pro.field_helpdesk_tag__name
+#: model:ir.model.fields,field_description:helpdesk_community_pro.field_helpdesk_team__name
+msgid "Name"
+msgstr "الاسم"
+
+#. module: helpdesk_community_pro
+#: model:helpdesk.stage,name:helpdesk_community_pro.stage_new
+msgid "New"
+msgstr "جديدة"
+
+#. module: helpdesk_community_pro
+#. odoo-python
+#: code:addons/helpdesk_community_pro/controllers/portal.py:0
+#, python-format
+msgid "Newest"
+msgstr "الأحدث"
+
+#. module: helpdesk_community_pro
+#: model:ir.model.fields,field_description:helpdesk_community_pro.field_helpdesk_ticket__activity_date_deadline
+msgid "Next Activity Deadline"
+msgstr "الموعد النهائي للنشاط التالي"
+
+#. module: helpdesk_community_pro
+#: model:ir.model.fields,field_description:helpdesk_community_pro.field_helpdesk_ticket__activity_summary
+msgid "Next Activity Summary"
+msgstr "ملخص النشاط التالي"
+
+#. module: helpdesk_community_pro
+#: model:ir.model.fields,field_description:helpdesk_community_pro.field_helpdesk_ticket__activity_type_id
+msgid "Next Activity Type"
+msgstr "نوع النشاط التالي"
+
+#. module: helpdesk_community_pro
+#. odoo-python
+#: code:addons/helpdesk_community_pro/models/helpdesk_ticket.py:0
+#, python-format
+msgid "No Subject"
+msgstr "بدون موضوع"
+
+#. module: helpdesk_community_pro
+#: model:ir.model.fields,field_description:helpdesk_community_pro.field_helpdesk_ticket__message_needaction_counter
+msgid "Number of Actions"
+msgstr "عدد الإجراءات"
+
+#. module: helpdesk_community_pro
+#: model:ir.model.fields,field_description:helpdesk_community_pro.field_helpdesk_ticket__message_has_error_counter
+msgid "Number of errors"
+msgstr "عدد الأخطاء"
+
+#. module: helpdesk_community_pro
+#: model:ir.model.fields,help:helpdesk_community_pro.field_helpdesk_ticket__message_needaction_counter
+msgid "Number of messages requiring action"
+msgstr "عدد الرسائل التي تتطلب إجراءً"
+
+#. module: helpdesk_community_pro
+#: model:ir.model.fields,help:helpdesk_community_pro.field_helpdesk_ticket__message_has_error_counter
+msgid "Number of messages with delivery error"
+msgstr "عدد الرسائل التي بها خطأ في التسليم"
+
+#. module: helpdesk_community_pro
+#: model:ir.model.fields.selection,name:helpdesk_community_pro.selection__helpdesk_ticket__rating__okay
+msgid "Okay"
+msgstr "مقبولة"
+
+#. module: helpdesk_community_pro
+#: model:helpdesk.stage,name:helpdesk_community_pro.stage_on_hold
+msgid "On Hold"
+msgstr "معلقة"
+
+#. module: helpdesk_community_pro
+#: model:ir.model.fields.selection,name:helpdesk_community_pro.selection__helpdesk_ticket__sla_status__ok
+msgid "On Track"
+msgstr "ضمن الحدود"
+
+#. module: helpdesk_community_pro
+#: model:ir.model.fields,field_description:helpdesk_community_pro.field_helpdesk_ticket__open_hours
+msgid "Open Hours"
+msgstr "ساعات الفتح"
+
+#. module: helpdesk_community_pro
+#: model:ir.model.fields,help:helpdesk_community_pro.field_helpdesk_team__alias_force_thread_id
+msgid ""
+"Optional ID of a thread (record) to which all incoming messages will be "
+"attached, even if they did not reply to it. If set, this will disable the "
+"creation of new records completely."
+msgstr "معرّف اختياري لمحادثة (سجل) سترتبط به جميع الرسائل الواردة، حتى لو لم تكن رداً عليه. عند تعيينه، سيُعطّل هذا إنشاء سجلات جديدة تماماً."
+
+#. module: helpdesk_community_pro
+#: model:ir.model.fields,field_description:helpdesk_community_pro.field_helpdesk_team__alias_parent_model_id
+msgid "Parent Model"
+msgstr "النموذج الأصل"
+
+#. module: helpdesk_community_pro
+#: model:ir.model.fields,field_description:helpdesk_community_pro.field_helpdesk_team__alias_parent_thread_id
+msgid "Parent Record Thread ID"
+msgstr "معرّف محادثة السجل الأصل"
+
+#. module: helpdesk_community_pro
+#: model:ir.model.fields,help:helpdesk_community_pro.field_helpdesk_team__alias_parent_model_id
+msgid ""
+"Parent model holding the alias. The model holding the alias reference is not"
+" necessarily the model given by alias_model_id (example: project "
+"(parent_model) and task (model))"
+msgstr "النموذج الأصل الذي يحمل الاسم المستعار. النموذج الذي يحمل مرجع الاسم المستعار ليس بالضرورة النموذج المحدد في alias_model_id (مثال: مشروع (النموذج الأصل) ومهمة (النموذج))"
+
+#. module: helpdesk_community_pro
+#: model:ir.model.fields,help:helpdesk_community_pro.field_helpdesk_team__sla_compliance
+msgid ""
+"Percentage of this team's SLA-tracked, closed tickets that met their "
+"deadline."
+msgstr "النسبة المئوية لتذاكر هذا الفريق المغلقة والخاضعة لاتفاقية مستوى الخدمة التي التزمت بموعدها النهائي."
+
+#. module: helpdesk_community_pro
+#: model:ir.model.fields,help:helpdesk_community_pro.field_helpdesk_team__alias_contact
+msgid ""
+"Policy to post a message on the document using the mailgateway.\n"
+"- everyone: everyone can post\n"
+"- partners: only authenticated partners\n"
+"- followers: only followers of the related document or members of following channels\n"
+msgstr ""
+"سياسة نشر رسالة على المستند باستخدام بوابة البريد.\n"
+"- الجميع: يمكن للجميع النشر\n"
+"- الشركاء: الشركاء الموثّقون فقط\n"
+"- المتابعون: متابعو المستند المرتبط أو أعضاء القنوات المتابعة فقط\n"
+
+#. module: helpdesk_community_pro
+#: model:ir.model.fields,field_description:helpdesk_community_pro.field_helpdesk_ticket__access_url
+msgid "Portal Access URL"
+msgstr "رابط الوصول إلى البوابة"
+
+#. module: helpdesk_community_pro
+#: model:ir.model.fields,field_description:helpdesk_community_pro.field_helpdesk_canned_insert__body_preview
+msgid "Preview"
+msgstr "معاينة"
+
+#. module: helpdesk_community_pro
+#: model:ir.model.fields,field_description:helpdesk_community_pro.field_helpdesk_sla__priority
+#: model:ir.model.fields,field_description:helpdesk_community_pro.field_helpdesk_ticket__priority
+#: model_terms:ir.ui.view,arch_db:helpdesk_community_pro.helpdesk_ticket_view_search
+msgid "Priority"
+msgstr "الأولوية"
+
+#. module: helpdesk_community_pro
+#: model:ir.model.fields,field_description:helpdesk_community_pro.field_helpdesk_ticket__rating
+#: model_terms:ir.ui.view,arch_db:helpdesk_community_pro.helpdesk_ticket_view_search
+msgid "Rating"
+msgstr "التقييم"
+
+#. module: helpdesk_community_pro
+#: model:ir.model.fields,field_description:helpdesk_community_pro.field_helpdesk_ticket__rating_date
+msgid "Rating Date"
+msgstr "تاريخ التقييم"
+
+#. module: helpdesk_community_pro
+#: model:ir.model.fields,field_description:helpdesk_community_pro.field_helpdesk_ticket__rating_token
+msgid "Rating Token"
+msgstr "رمز التقييم"
+
+#. module: helpdesk_community_pro
+#: model:ir.model.fields,field_description:helpdesk_community_pro.field_helpdesk_team__alias_force_thread_id
+msgid "Record Thread ID"
+msgstr "معرّف محادثة السجل"
+
+#. module: helpdesk_community_pro
+#: model:ir.model.fields,field_description:helpdesk_community_pro.field_helpdesk_ticket__ref
+msgid "Ref"
+msgstr "المرجع"
+
+#. module: helpdesk_community_pro
+#: model_terms:ir.ui.view,arch_db:helpdesk_community_pro.portal_my_tickets
+msgid "Reference"
+msgstr "المرجع"
+
+#. module: helpdesk_community_pro
+#: model:ir.model.fields,field_description:helpdesk_community_pro.field_helpdesk_ticket__resolution_hours
+msgid "Resolution Hours"
+msgstr "ساعات الحل"
+
+#. module: helpdesk_community_pro
+#: model:ir.model.fields,field_description:helpdesk_community_pro.field_helpdesk_ticket__activity_user_id
+msgid "Responsible User"
+msgstr "المستخدم المسؤول"
+
+#. module: helpdesk_community_pro
+#: model_terms:ir.ui.view,arch_db:helpdesk_community_pro.helpdesk_ticket_view_form
+msgid "SLA"
+msgstr "اتفاقية مستوى الخدمة"
+
+#. module: helpdesk_community_pro
+#: model_terms:ir.ui.view,arch_db:helpdesk_community_pro.helpdesk_ticket_view_kanban
+#: model_terms:ir.ui.view,arch_db:helpdesk_community_pro.helpdesk_ticket_view_search
+msgid "SLA At Risk"
+msgstr "اتفاقية مستوى خدمة معرضة للخطر"
+
+#. module: helpdesk_community_pro
+#: model_terms:ir.ui.view,arch_db:helpdesk_community_pro.helpdesk_ticket_view_kanban
+#: model_terms:ir.ui.view,arch_db:helpdesk_community_pro.helpdesk_ticket_view_search
+msgid "SLA Breached"
+msgstr "اتفاقية مستوى خدمة متجاوزة"
+
+#. module: helpdesk_community_pro
+#: model:ir.model.fields,field_description:helpdesk_community_pro.field_helpdesk_team__sla_compliance
+#: model_terms:ir.ui.view,arch_db:helpdesk_community_pro.helpdesk_team_view_form
+msgid "SLA Compliance"
+msgstr "الالتزام باتفاقية مستوى الخدمة"
+
+#. module: helpdesk_community_pro
+#: model_terms:ir.ui.view,arch_db:helpdesk_community_pro.helpdesk_ticket_view_kanban
+msgid "SLA On Track"
+msgstr "اتفاقية مستوى الخدمة ضمن الحدود"
+
+#. module: helpdesk_community_pro
+#: model:ir.actions.act_window,name:helpdesk_community_pro.helpdesk_sla_action
+#: model:ir.ui.menu,name:helpdesk_community_pro.helpdesk_menu_sla
+#: model_terms:ir.ui.view,arch_db:helpdesk_community_pro.helpdesk_sla_view_list
+msgid "SLA Policies"
+msgstr "سياسات اتفاقية مستوى الخدمة"
+
+#. module: helpdesk_community_pro
+#: model:ir.model.fields,field_description:helpdesk_community_pro.field_helpdesk_ticket__sla_id
+#: model_terms:ir.ui.view,arch_db:helpdesk_community_pro.helpdesk_sla_view_form
+msgid "SLA Policy"
+msgstr "سياسة اتفاقية مستوى الخدمة"
+
+#. module: helpdesk_community_pro
+#: model:ir.model.fields,field_description:helpdesk_community_pro.field_helpdesk_ticket__message_has_sms_error
+msgid "SMS Delivery error"
+msgstr "خطأ في تسليم الرسائل النصية"
+
+#. module: helpdesk_community_pro
+#: model_terms:ir.ui.view,arch_db:helpdesk_community_pro.helpdesk_ticket_view_form
+msgid "Satisfaction"
+msgstr "الرضا"
+
+#. module: helpdesk_community_pro
+#: model:ir.model.fields,field_description:helpdesk_community_pro.field_helpdesk_ticket__access_token
+msgid "Security Token"
+msgstr "رمز الأمان"
+
+#. module: helpdesk_community_pro
+#: model:ir.model.fields,help:helpdesk_community_pro.field_helpdesk_team__csat_enabled
+msgid ""
+"Send a satisfaction rating email when a ticket from this team is closed."
+msgstr "إرسال بريد إلكتروني لتقييم الرضا عند إغلاق تذكرة من هذا الفريق."
+
+#. module: helpdesk_community_pro
+#: model:ir.model.fields,field_description:helpdesk_community_pro.field_helpdesk_stage__sequence
+msgid "Sequence"
+msgstr "التسلسل"
+
+#. module: helpdesk_community_pro
+#: model:ir.model.fields,help:helpdesk_community_pro.field_helpdesk_ticket__close_date
+msgid "Set the first time the ticket enters a closed stage."
+msgstr "يُضبط عند دخول التذكرة إلى مرحلة مغلقة لأول مرة."
+
+#. module: helpdesk_community_pro
+#: model:ir.model.fields,help:helpdesk_community_pro.field_helpdesk_ticket__assign_date
+msgid "Set the first time the ticket is assigned to an agent."
+msgstr "يُضبط عند إسناد التذكرة إلى وكيل لأول مرة."
+
+#. module: helpdesk_community_pro
+#: model:ir.model.fields,help:helpdesk_community_pro.field_helpdesk_ticket__sla_reached
+msgid "Set when the ticket entered a closed stage before its SLA deadline."
+msgstr "يُضبط عندما تدخل التذكرة مرحلة مغلقة قبل الموعد النهائي لاتفاقية مستوى الخدمة."
+
+#. module: helpdesk_community_pro
+#: model:ir.model.fields,help:helpdesk_community_pro.field_helpdesk_ticket__rating_token
+msgid "Signed token embedded in the CSAT email's rating links."
+msgstr "رمز موقّع مضمّن في روابط التقييم ضمن بريد رضا العملاء."
+
+#. module: helpdesk_community_pro
+#: model:ir.model.fields,field_description:helpdesk_community_pro.field_helpdesk_ticket__sla_deadline
+msgid "Sla Deadline"
+msgstr "الموعد النهائي لاتفاقية مستوى الخدمة"
+
+#. module: helpdesk_community_pro
+#: model:ir.model.fields,field_description:helpdesk_community_pro.field_helpdesk_ticket__sla_reached
+msgid "Sla Reached"
+msgstr "تم الالتزام باتفاقية مستوى الخدمة"
+
+#. module: helpdesk_community_pro
+#: model:ir.model.fields,field_description:helpdesk_community_pro.field_helpdesk_ticket__sla_status
+msgid "Sla Status"
+msgstr "حالة اتفاقية مستوى الخدمة"
+
+#. module: helpdesk_community_pro
+#: model:helpdesk.stage,name:helpdesk_community_pro.stage_solved
+msgid "Solved"
+msgstr "تم الحل"
+
+#. module: helpdesk_community_pro
+#: model:ir.model.fields,field_description:helpdesk_community_pro.field_helpdesk_ticket__stage_id
+#: model_terms:ir.ui.view,arch_db:helpdesk_community_pro.helpdesk_stage_view_form
+#: model_terms:ir.ui.view,arch_db:helpdesk_community_pro.helpdesk_ticket_view_search
+msgid "Stage"
+msgstr "المرحلة"
+
+#. module: helpdesk_community_pro
+#: model:ir.actions.act_window,name:helpdesk_community_pro.helpdesk_stage_action
+#: model:ir.ui.menu,name:helpdesk_community_pro.helpdesk_menu_stages
+#: model_terms:ir.ui.view,arch_db:helpdesk_community_pro.helpdesk_stage_view_list
+msgid "Stages"
+msgstr "المراحل"
+
+#. module: helpdesk_community_pro
+#: model_terms:ir.ui.view,arch_db:helpdesk_community_pro.portal_my_tickets
+msgid "Status"
+msgstr "الحالة"
+
+#. module: helpdesk_community_pro
+#: model:ir.model.fields,help:helpdesk_community_pro.field_helpdesk_ticket__activity_state
+msgid ""
+"Status based on activities\n"
+"Overdue: Due date is already passed\n"
+"Today: Activity date is today\n"
+"Planned: Future activities."
+msgstr ""
+"الحالة بناءً على الأنشطة\n"
+"متأخر: تاريخ الاستحقاق قد مضى بالفعل\n"
+"اليوم: تاريخ النشاط هو اليوم\n"
+"مخطط: أنشطة مستقبلية."
+
+#. module: helpdesk_community_pro
+#: model_terms:ir.ui.view,arch_db:helpdesk_community_pro.portal_ticket_page
+msgid "Status:"
+msgstr "الحالة:"
+
+#. module: helpdesk_community_pro
+#. odoo-python
+#: code:addons/helpdesk_community_pro/controllers/portal.py:0
+#: model:ir.model.fields,field_description:helpdesk_community_pro.field_helpdesk_ticket__name
+#: model_terms:ir.ui.view,arch_db:helpdesk_community_pro.portal_my_tickets
+#, python-format
+msgid "Subject"
+msgstr "الموضوع"
+
+#. module: helpdesk_community_pro
+#: model_terms:ir.ui.view,arch_db:helpdesk_community_pro.helpdesk_ticket_view_form
+msgid "Subject..."
+msgstr "الموضوع..."
+
+#. module: helpdesk_community_pro
+#: model:ir.model.fields,field_description:helpdesk_community_pro.field_helpdesk_sla__tag_id
+#: model_terms:ir.ui.view,arch_db:helpdesk_community_pro.helpdesk_tag_view_form
+msgid "Tag"
+msgstr "الوسم"
+
+#. module: helpdesk_community_pro
+#: model:ir.actions.act_window,name:helpdesk_community_pro.helpdesk_tag_action
+#: model:ir.model.fields,field_description:helpdesk_community_pro.field_helpdesk_ticket__tag_ids
+#: model:ir.ui.menu,name:helpdesk_community_pro.helpdesk_menu_tags
+#: model_terms:ir.ui.view,arch_db:helpdesk_community_pro.helpdesk_tag_view_list
+msgid "Tags"
+msgstr "الوسوم"
+
+#. module: helpdesk_community_pro
+#: model:ir.model.fields,field_description:helpdesk_community_pro.field_helpdesk_sla__target_hours
+msgid "Target Hours"
+msgstr "الساعات المستهدفة"
+
+#. module: helpdesk_community_pro
+#: model:ir.model.fields,field_description:helpdesk_community_pro.field_helpdesk_canned_insert__team_id
+#: model:ir.model.fields,field_description:helpdesk_community_pro.field_helpdesk_sla__team_id
+#: model:ir.model.fields,field_description:helpdesk_community_pro.field_helpdesk_ticket__team_id
+#: model_terms:ir.ui.view,arch_db:helpdesk_community_pro.helpdesk_ticket_view_search
+msgid "Team"
+msgstr "الفريق"
+
+#. module: helpdesk_community_pro
+#: model:ir.model.fields,field_description:helpdesk_community_pro.field_helpdesk_team__member_ids
+msgid "Team Members"
+msgstr "أعضاء الفريق"
+
+#. module: helpdesk_community_pro
+#: model:ir.actions.act_window,name:helpdesk_community_pro.helpdesk_team_action
+#: model:ir.model.fields,field_description:helpdesk_community_pro.field_helpdesk_canned_response__team_ids
+#: model:ir.ui.menu,name:helpdesk_community_pro.helpdesk_menu_teams
+#: model_terms:ir.ui.view,arch_db:helpdesk_community_pro.helpdesk_team_view_list
+msgid "Teams"
+msgstr "الفرق"
+
+#. module: helpdesk_community_pro
+#: model_terms:ir.ui.view,arch_db:helpdesk_community_pro.rating_feedback_page
+msgid "Thank you for your feedback!"
+msgstr "شكراً لك على تقييمك!"
+
+#. module: helpdesk_community_pro
+#: model:ir.model.fields,help:helpdesk_community_pro.field_helpdesk_team__alias_model_id
+msgid ""
+"The model (Odoo Document Kind) to which this alias corresponds. Any incoming"
+" email that does not reply to an existing record will cause the creation of "
+"a new record of this model (e.g. a Project Task)"
+msgstr "النموذج (نوع مستند أودو) الذي يتوافق معه هذا الاسم المستعار. أي بريد إلكتروني وارد لا يرد على سجل موجود سيؤدي إلى إنشاء سجل جديد من هذا النموذج (مثال: مهمة مشروع)"
+
+#. module: helpdesk_community_pro
+#: model:ir.model.fields,help:helpdesk_community_pro.field_helpdesk_team__alias_name
+msgid ""
+"The name of the email alias, e.g. 'jobs' if you want to catch emails for "
+"<jobs@example.odoo.com>"
+msgstr "اسم الاسم المستعار للبريد الإلكتروني، مثال: 'jobs' إذا كنت تريد استقبال رسائل <jobs@example.odoo.com>"
+
+#. module: helpdesk_community_pro
+#: model_terms:ir.ui.view,arch_db:helpdesk_community_pro.helpdesk_ticket_merge_view_form
+msgid ""
+"The ticket to merge will have its messages, followers\n"
+"                    and attachments moved into the destination, then be\n"
+"                    closed with a reference to it. Both tickets must\n"
+"                    currently be open."
+msgstr ""
+"سيتم نقل رسائل ومتابعي ومرفقات التذكرة المراد دمجها\n"
+"                    إلى الوجهة، ثم يتم إغلاقها\n"
+"                    مع الإشارة إليها. يجب أن تكون كلتا التذكرتين\n"
+"                    مفتوحتين حالياً."
+
+#. module: helpdesk_community_pro
+#: model_terms:ir.ui.view,arch_db:helpdesk_community_pro.portal_my_tickets
+msgid "There are no tickets."
+msgstr "لا توجد تذاكر."
+
+#. module: helpdesk_community_pro
+#: model_terms:ir.ui.view,arch_db:helpdesk_community_pro.rating_feedback_page
+msgid "This rating can no longer be changed"
+msgstr "لا يمكن تغيير هذا التقييم بعد الآن"
+
+#. module: helpdesk_community_pro
+#: model_terms:ir.ui.view,arch_db:helpdesk_community_pro.rating_feedback_page
+msgid "This rating link is not valid"
+msgstr "رابط التقييم هذا غير صالح"
+
+#. module: helpdesk_community_pro
+#: model:ir.model.fields,help:helpdesk_community_pro.field_helpdesk_stage__fold
+msgid ""
+"This stage is folded in the kanban view when there are no records to display"
+" in it."
+msgstr "تُطوى هذه المرحلة في عرض كانبان عندما لا توجد سجلات لعرضها فيها."
+
+#. module: helpdesk_community_pro
+#: model:ir.model.fields,field_description:helpdesk_community_pro.field_helpdesk_canned_insert__ticket_id
+#: model_terms:ir.ui.view,arch_db:helpdesk_community_pro.helpdesk_ticket_view_form
+#: model_terms:ir.ui.view,arch_db:helpdesk_community_pro.helpdesk_ticket_view_search
+msgid "Ticket"
+msgstr "التذكرة"
+
+#. module: helpdesk_community_pro
+#: model_terms:ir.ui.view,arch_db:helpdesk_community_pro.helpdesk_ticket_view_graph
+#: model_terms:ir.ui.view,arch_db:helpdesk_community_pro.helpdesk_ticket_view_pivot
+msgid "Ticket Analysis"
+msgstr "تحليل التذاكر"
+
+#. module: helpdesk_community_pro
+#: model:ir.model.fields,field_description:helpdesk_community_pro.field_helpdesk_team__ticket_count
+msgid "Ticket Count"
+msgstr "عدد التذاكر"
+
+#. module: helpdesk_community_pro
+#: model:ir.model.fields,field_description:helpdesk_community_pro.field_helpdesk_ticket_merge__source_ticket_id
+msgid "Ticket to Merge"
+msgstr "التذكرة المراد دمجها"
+
+#. module: helpdesk_community_pro
+#: model:ir.actions.act_window,name:helpdesk_community_pro.helpdesk_ticket_action
+#: model:ir.ui.menu,name:helpdesk_community_pro.helpdesk_menu_tickets
+#: model_terms:ir.ui.view,arch_db:helpdesk_community_pro.helpdesk_team_view_form
+#: model_terms:ir.ui.view,arch_db:helpdesk_community_pro.helpdesk_team_view_kanban
+#: model_terms:ir.ui.view,arch_db:helpdesk_community_pro.helpdesk_ticket_view_list
+#: model_terms:ir.ui.view,arch_db:helpdesk_community_pro.helpdesk_ticket_view_search
+#: model_terms:ir.ui.view,arch_db:helpdesk_community_pro.portal_my_home_ticket
+#: model_terms:ir.ui.view,arch_db:helpdesk_community_pro.portal_my_tickets
+msgid "Tickets"
+msgstr "التذاكر"
+
+#. module: helpdesk_community_pro
+#: model:ir.model.fields,help:helpdesk_community_pro.field_helpdesk_stage__is_closed
+msgid "Tickets in this stage are considered closed."
+msgstr "تُعتبر التذاكر في هذه المرحلة مغلقة."
+
+#. module: helpdesk_community_pro
+#: model:ir.model.fields,help:helpdesk_community_pro.field_helpdesk_ticket__activity_exception_decoration
+msgid "Type of the exception activity on record."
+msgstr "نوع النشاط الاستثنائي في السجل."
+
+#. module: helpdesk_community_pro
+#: model_terms:ir.ui.view,arch_db:helpdesk_community_pro.helpdesk_ticket_view_search
+msgid "Unassigned"
+msgstr "غير مسندة"
+
+#. module: helpdesk_community_pro
+#: model:ir.model.fields.selection,name:helpdesk_community_pro.selection__helpdesk_sla__priority__3
+#: model:ir.model.fields.selection,name:helpdesk_community_pro.selection__helpdesk_ticket__priority__3
+msgid "Urgent"
+msgstr "عاجلة"
+
+#. module: helpdesk_community_pro
+#: model:res.groups,name:helpdesk_community_pro.group_helpdesk_user
+msgid "User: Agent"
+msgstr "المستخدم: وكيل"
+
+#. module: helpdesk_community_pro
+#: model:mail.template,subject:helpdesk_community_pro.mail_template_ticket_received
+msgid "We received your request ({{ object.ref }})"
+msgstr "لقد استلمنا طلبك ({{ object.ref }})"
+
+#. module: helpdesk_community_pro
+#: model:ir.model.fields,field_description:helpdesk_community_pro.field_helpdesk_ticket__website_message_ids
+msgid "Website Messages"
+msgstr "رسائل الموقع الإلكتروني"
+
+#. module: helpdesk_community_pro
+#: model:ir.model.fields,help:helpdesk_community_pro.field_helpdesk_ticket__website_message_ids
+msgid "Website communication history"
+msgstr "سجل مراسلات الموقع الإلكتروني"
+
+#. module: helpdesk_community_pro
+#: model:ir.model.fields,field_description:helpdesk_community_pro.field_helpdesk_team__calendar_id
+msgid "Working Hours"
+msgstr "ساعات العمل"
+
+#. module: helpdesk_community_pro
+#: model:ir.model.fields,help:helpdesk_community_pro.field_helpdesk_team__calendar_id
+msgid "Working calendar used to compute SLA deadlines for this team."
+msgstr "تقويم العمل المستخدم لحساب مواعيد اتفاقية مستوى الخدمة النهائية لهذا الفريق."
+
+#. module: helpdesk_community_pro
+#: model:ir.model.fields,help:helpdesk_community_pro.field_helpdesk_sla__target_hours
+msgid "Working hours allowed to resolve a matching ticket."
+msgstr "ساعات العمل المسموح بها لحل التذكرة المطابقة."
+
+#. module: helpdesk_community_pro
+#: model:ir.model.fields,help:helpdesk_community_pro.field_helpdesk_ticket__sla_deadline
+msgid ""
+"Working-hours deadline from the matched SLA policy. Frozen once the ticket "
+"reaches a closed stage."
+msgstr "الموعد النهائي بساعات العمل من سياسة اتفاقية مستوى الخدمة المطابقة. يتجمد بمجرد وصول التذكرة إلى مرحلة مغلقة."
+
+#. module: helpdesk_community_pro
+#: model_terms:ir.ui.view,arch_db:helpdesk_community_pro.rating_feedback_page
+msgid "You rated ticket"
+msgstr "لقد قيّمت التذكرة"
+
+#. module: helpdesk_community_pro
+#: model_terms:ir.ui.view,arch_db:helpdesk_community_pro.rating_feedback_page
+msgid ""
+"as\n"
+"                            \""
+msgstr ""
+"بـ\n"
+"                            \""
+
+#. module: helpdesk_community_pro
+#: model_terms:ir.ui.view,arch_db:helpdesk_community_pro.helpdesk_team_view_form
+msgid "e.g. Customer Support"
+msgstr "مثال: دعم العملاء"
+
+#. module: helpdesk_community_pro
+#: model_terms:ir.ui.view,arch_db:helpdesk_community_pro.helpdesk_team_view_form
+msgid "e.g. domain.com"
+msgstr "مثال: domain.com"
+
+#. module: helpdesk_community_pro
+#: model_terms:ir.ui.view,arch_db:helpdesk_community_pro.helpdesk_team_view_form
+msgid "e.g. support"
+msgstr "مثال: support"
+
+#. module: helpdesk_community_pro
+#: model_terms:ir.ui.view,arch_db:helpdesk_community_pro.rating_feedback_page
+msgid ""
+"was\n"
+"                            already recorded and the update window has closed."
+msgstr ""
+"تم تسجيله\n"
+"                            بالفعل وانتهت فترة التحديث المتاحة."

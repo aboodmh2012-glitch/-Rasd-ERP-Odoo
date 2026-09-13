@@ -1,0 +1,273 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="helpdesk_ticket_view_form" model="ir.ui.view">
+        <field name="name">helpdesk.ticket.form</field>
+        <field name="model">helpdesk.ticket</field>
+        <field name="arch" type="xml">
+            <form string="Ticket">
+                <header>
+                    <button
+                        name="%(helpdesk_community_pro.helpdesk_canned_insert_action)d"
+                        type="action"
+                        string="Insert Canned Response"
+                    />
+                    <button
+                        name="%(helpdesk_community_pro.helpdesk_ticket_merge_action)d"
+                        type="action"
+                        string="Merge"
+                    />
+                    <field
+                        name="stage_id"
+                        widget="statusbar"
+                        options="{'clickable': '1'}"
+                    />
+                </header>
+                <sheet>
+                    <div class="oe_title">
+                        <span class="o_form_label text-muted">
+                            <field name="ref" readonly="1"/>
+                        </span>
+                        <h1>
+                            <field name="name" placeholder="Subject..."/>
+                        </h1>
+                        <div class="o_row">
+                            <field name="priority" widget="priority"/>
+                        </div>
+                    </div>
+                    <group string="SLA" invisible="not sla_id">
+                        <field name="sla_id" readonly="1"/>
+                        <field name="sla_deadline" readonly="1"/>
+                        <field
+                            name="sla_status"
+                            widget="badge"
+                            decoration-success="sla_status == 'ok'"
+                            decoration-warning="sla_status == 'at_risk'"
+                            decoration-danger="sla_status == 'breached'"
+                        />
+                    </group>
+                    <group string="Satisfaction" invisible="not rating">
+                        <field
+                            name="rating"
+                            readonly="1"
+                            widget="badge"
+                            decoration-success="rating == 'good'"
+                            decoration-warning="rating == 'okay'"
+                            decoration-danger="rating == 'bad'"
+                        />
+                        <field name="rating_date" readonly="1"/>
+                    </group>
+                    <group>
+                        <group>
+                            <field name="team_id"/>
+                            <field name="user_id" widget="many2one_avatar_user"/>
+                            <field name="partner_id"/>
+                            <field name="partner_email"/>
+                            <field name="partner_name"/>
+                        </group>
+                        <group>
+                            <field
+                                name="tag_ids"
+                                widget="many2many_tags"
+                                options="{'color_field': 'color'}"
+                            />
+                            <field name="company_id" groups="base.group_multi_company"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Description" name="description">
+                            <field name="description"/>
+                        </page>
+                    </notebook>
+                </sheet>
+                <chatter/>
+            </form>
+        </field>
+    </record>
+
+    <record id="helpdesk_ticket_view_list" model="ir.ui.view">
+        <field name="name">helpdesk.ticket.list</field>
+        <field name="model">helpdesk.ticket</field>
+        <field name="arch" type="xml">
+            <list
+                string="Tickets"
+                multi_edit="1"
+                decoration-danger="sla_status == 'breached'"
+                decoration-warning="sla_status == 'at_risk'"
+                decoration-success="sla_status == 'ok'"
+            >
+                <field name="ref"/>
+                <field name="name"/>
+                <field name="team_id" optional="show"/>
+                <field name="user_id" optional="show" widget="many2one_avatar_user"/>
+                <field name="priority" optional="show" widget="priority"/>
+                <field name="tag_ids" widget="many2many_tags" optional="hide"/>
+                <field name="stage_id" optional="show"/>
+                <field name="sla_status" invisible="1"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="helpdesk_ticket_view_kanban" model="ir.ui.view">
+        <field name="name">helpdesk.ticket.kanban</field>
+        <field name="model">helpdesk.ticket</field>
+        <field name="arch" type="xml">
+            <!-- PORT-19: kanban template renamed kanban-box -> card, with a
+                 separate "menu" template for the kebab dropdown (color
+                 picker); no manual oe_kanban_card wrapper or dropdown
+                 markup needed, the framework generates both now. Pattern
+                 matches core (project/views/project_task_views.xml). -->
+            <kanban
+                highlight_color="color"
+                default_group_by="stage_id"
+                class="o_kanban_small_column"
+                quick_create="false"
+            >
+                <field name="stage_id"/>
+                <field name="priority"/>
+                <field name="color"/>
+                <field name="user_id"/>
+                <field name="partner_id"/>
+                <field name="tag_ids"/>
+                <field name="team_id"/>
+                <field name="sla_status"/>
+                <templates>
+                    <t t-name="menu" groups="base.group_user">
+                        <div role="menuitem">
+                            <field name="color" widget="kanban_color_picker"/>
+                        </div>
+                    </t>
+                    <t t-name="card">
+                        <main>
+                            <field name="ref" class="text-muted"/>
+                            <field name="name" class="fw-bold fs-5"/>
+                            <div class="text-muted" t-if="record.partner_id.raw_value">
+                                <field name="partner_id"/>
+                            </div>
+                            <field
+                                name="tag_ids"
+                                widget="many2many_tags"
+                                options="{'color_field': 'color'}"
+                            />
+                            <div t-if="record.sla_status.raw_value" class="mt-1">
+                                <span
+                                    t-if="record.sla_status.raw_value == 'breached'"
+                                    class="badge text-bg-danger"
+                                >SLA Breached</span>
+                                <span
+                                    t-elif="record.sla_status.raw_value == 'at_risk'"
+                                    class="badge text-bg-warning"
+                                >SLA At Risk</span>
+                                <span
+                                    t-elif="record.sla_status.raw_value == 'ok'"
+                                    class="badge text-bg-success"
+                                >SLA On Track</span>
+                            </div>
+                        </main>
+                        <footer>
+                            <field name="priority" widget="priority"/>
+                            <field
+                                name="user_id"
+                                widget="many2one_avatar_user"
+                                class="ms-auto"
+                            />
+                        </footer>
+                    </t>
+                </templates>
+            </kanban>
+        </field>
+    </record>
+
+    <record id="helpdesk_ticket_view_search" model="ir.ui.view">
+        <field name="name">helpdesk.ticket.search</field>
+        <field name="model">helpdesk.ticket</field>
+        <field name="arch" type="xml">
+            <search string="Tickets">
+                <field name="name" string="Ticket"/>
+                <field name="ref"/>
+                <field name="team_id"/>
+                <field name="user_id"/>
+                <field name="tag_ids"/>
+                <filter string="My Tickets" name="my_tickets" domain="[('user_id', '=', uid)]"/>
+                <filter
+                    string="Unassigned"
+                    name="unassigned"
+                    domain="[('user_id', '=', False)]"
+                />
+                <filter
+                    string="SLA Breached"
+                    name="sla_breached"
+                    domain="[('sla_status', '=', 'breached')]"
+                />
+                <filter
+                    string="SLA At Risk"
+                    name="sla_at_risk"
+                    domain="[('sla_status', '=', 'at_risk')]"
+                />
+                <separator/>
+                <filter string="Archived" name="inactive" domain="[('active', '=', False)]"/>
+                <separator/>
+                <!-- PORT-19: search-view <group> no longer accepts <filter> children
+                     (RNG schema only allows <field> inside it), so these group-by
+                     filters are flat siblings instead of wrapped in
+                     <group expand="0" string="Group By"> as on 17.0. -->
+                <filter string="Team" name="group_by_team" context="{'group_by': 'team_id'}"/>
+                <filter
+                    string="Stage"
+                    name="group_by_stage"
+                    context="{'group_by': 'stage_id'}"
+                />
+                <filter
+                    string="Assignee"
+                    name="group_by_user"
+                    context="{'group_by': 'user_id'}"
+                />
+                <filter
+                    string="Priority"
+                    name="group_by_priority"
+                    context="{'group_by': 'priority'}"
+                />
+                <filter
+                    string="Rating"
+                    name="group_by_rating"
+                    context="{'group_by': 'rating'}"
+                />
+            </search>
+        </field>
+    </record>
+
+    <record id="helpdesk_ticket_view_pivot" model="ir.ui.view">
+        <field name="name">helpdesk.ticket.pivot</field>
+        <field name="model">helpdesk.ticket</field>
+        <field name="arch" type="xml">
+            <pivot string="Ticket Analysis">
+                <field name="team_id" type="row"/>
+                <field name="stage_id" type="col"/>
+                <field name="resolution_hours" type="measure"/>
+                <field name="open_hours" type="measure"/>
+            </pivot>
+        </field>
+    </record>
+
+    <record id="helpdesk_ticket_view_graph" model="ir.ui.view">
+        <field name="name">helpdesk.ticket.graph</field>
+        <field name="model">helpdesk.ticket</field>
+        <field name="arch" type="xml">
+            <graph string="Ticket Analysis" type="bar">
+                <field name="team_id"/>
+                <field name="resolution_hours" type="measure"/>
+            </graph>
+        </field>
+    </record>
+
+    <record id="helpdesk_ticket_action" model="ir.actions.act_window">
+        <field name="name">Tickets</field>
+        <field name="res_model">helpdesk.ticket</field>
+        <field name="view_mode">kanban,list,form,pivot,graph</field>
+        <field name="search_view_id" ref="helpdesk_ticket_view_search"/>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                Create your first helpdesk ticket
+            </p>
+        </field>
+    </record>
+</odoo>

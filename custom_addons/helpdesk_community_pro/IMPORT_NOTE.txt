@@ -1,1 +1,0 @@
-Temporary import marker for Helpdesk Pro 19.0.1.0.0. The module source is being imported from the user-provided package.
