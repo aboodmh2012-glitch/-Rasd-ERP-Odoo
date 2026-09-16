@@ -8,6 +8,14 @@ _build/
 !.github
 !.mailmap
 !.weblate.json
+!.mcp.json
+!.claude
+!.claude/**
+
+# secrets — never commit real environment files
+.env
+.env.*
+!.env.example
 # compiled python files
 *.py[co]
 __pycache__/
