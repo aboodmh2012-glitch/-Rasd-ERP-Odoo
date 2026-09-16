@@ -79,12 +79,58 @@ for i in $(seq 1 90); do
   sleep 2
 done
 
-DB_EXISTS="$(psql -h "${DB_HOST}" -p "${DB_PORT}" -U "${DB_USER}" -d postgres -tAc "SELECT 1 FROM pg_database WHERE datname='${DB_NAME}'" || true)"
-if [[ "${DB_EXISTS}" != "1" ]]; then
-  echo "[masar] Creating PostgreSQL database '${DB_NAME}'..."
-  psql -h "${DB_HOST}" -p "${DB_PORT}" -U "${DB_USER}" -d postgres -v ON_ERROR_STOP=1 \
-    -c "CREATE DATABASE \"${DB_NAME}\" OWNER \"${DB_USER}\" ENCODING 'UTF8' TEMPLATE template0;"
+# ---------------------------------------------------------------------------
+# Odoo refuses to start when its database user is the PostgreSQL superuser
+# 'postgres' (odoo/cli/server.py -> "Using the database user 'postgres' is a
+# security risk, aborting."). Railway's DATABASE_URL uses 'postgres', so when
+# that is the connection derived above, provision a dedicated least-privilege
+# role and hand it to Odoo instead. The superuser is used only for this
+# one-time provisioning.
+# ---------------------------------------------------------------------------
+ADMIN_USER="${DB_USER}"
+ADMIN_PASSWORD="${DB_PASSWORD}"
+
+if [[ "${DB_USER}" == "postgres" || -n "${ODOO_DB_USER:-}" ]]; then
+  APP_DB_USER="${ODOO_DB_USER:-masar}"
+  APP_DB_PASSWORD="${ODOO_DB_PASSWORD:-${ADMIN_PASSWORD}}"
+
+  echo "[masar] Ensuring dedicated database role '${APP_DB_USER}' (Odoo will not run as 'postgres')..."
+  PGPASSWORD="${ADMIN_PASSWORD}" psql -h "${DB_HOST}" -p "${DB_PORT}" -U "${ADMIN_USER}" -d postgres \
+    -v ON_ERROR_STOP=1 -v role="${APP_DB_USER}" -v pass="${APP_DB_PASSWORD}" <<'SQL'
+SELECT format('CREATE ROLE %I LOGIN CREATEDB PASSWORD %L', :'role', :'pass')
+WHERE NOT EXISTS (SELECT 1 FROM pg_roles WHERE rolname = :'role')
+\gexec
+SELECT format('ALTER ROLE %I LOGIN CREATEDB PASSWORD %L', :'role', :'pass')
+\gexec
+SQL
+else
+  APP_DB_USER="${DB_USER}"
+  APP_DB_PASSWORD="${DB_PASSWORD}"
 fi
+
+# Create the application database if missing (as admin), owned by the app role.
+DB_EXISTS="$(PGPASSWORD="${ADMIN_PASSWORD}" psql -h "${DB_HOST}" -p "${DB_PORT}" -U "${ADMIN_USER}" -d postgres -tAc "SELECT 1 FROM pg_database WHERE datname='${DB_NAME}'" || true)"
+if [[ "${DB_EXISTS}" != "1" ]]; then
+  echo "[masar] Creating PostgreSQL database '${DB_NAME}' owned by '${APP_DB_USER}'..."
+  PGPASSWORD="${ADMIN_PASSWORD}" psql -h "${DB_HOST}" -p "${DB_PORT}" -U "${ADMIN_USER}" -d postgres -v ON_ERROR_STOP=1 \
+    -c "CREATE DATABASE \"${DB_NAME}\" OWNER \"${APP_DB_USER}\" ENCODING 'UTF8' TEMPLATE template0;"
+else
+  echo "[masar] Ensuring database '${DB_NAME}' is owned by '${APP_DB_USER}'..."
+  PGPASSWORD="${ADMIN_PASSWORD}" psql -h "${DB_HOST}" -p "${DB_PORT}" -U "${ADMIN_USER}" -d postgres \
+    -c "ALTER DATABASE \"${DB_NAME}\" OWNER TO \"${APP_DB_USER}\";" || true
+fi
+
+# On PG 15+ the public schema is locked down; make the app role own it so Odoo
+# can create its tables.
+PGPASSWORD="${ADMIN_PASSWORD}" psql -h "${DB_HOST}" -p "${DB_PORT}" -U "${ADMIN_USER}" -d "${DB_NAME}" \
+  -c "ALTER SCHEMA public OWNER TO \"${APP_DB_USER}\";" \
+  -c "GRANT ALL ON SCHEMA public TO \"${APP_DB_USER}\";" || true
+
+# Hand the least-privilege role to Odoo and every later psql call.
+DB_USER="${APP_DB_USER}"
+DB_PASSWORD="${APP_DB_PASSWORD}"
+export PGUSER="${DB_USER}"
+export PGPASSWORD="${DB_PASSWORD}"
 
 export DB_HOST DB_PORT DB_USER DB_PASSWORD DB_NAME ADMIN_PASSWD HTTP_PORT WORKERS PROXY_MODE LIST_DB DB_FILTER ODOO_DATA_DIR LOGFILE
 python3 - <<'PY'
