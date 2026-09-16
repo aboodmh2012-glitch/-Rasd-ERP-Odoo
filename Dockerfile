@@ -14,6 +14,7 @@ RUN apt-get update && DEBIAN_FRONTEND=noninteractive apt-get install -y --no-ins
         curl \
         postgresql-client \
         npm \
+        gosu \
         fonts-noto-core \
         fonts-noto-ui-core \
     && npm install -g rtlcss \
@@ -27,11 +28,8 @@ COPY docker/init_masar.py /opt/masar/init_masar.py
 
 RUN chmod +x /entrypoint.sh \
     && mkdir -p /var/lib/odoo/filestore /var/lib/odoo/sessions /var/log/odoo /opt/masar \
-    && chown -R odoo:odoo /mnt/extra-addons /var/lib/odoo /var/log/odoo /etc/odoo /opt/masar /entrypoint.sh
+    && chown -R odoo:odoo /mnt/extra-addons /var/lib/odoo /var/log/odoo /etc/odoo /opt/masar
 
-# Official image already exposes 8069/8072 and sets USER odoo in its entrypoint;
-# we replace the entrypoint with MASAR's Railway-aware bootstrap.
-USER odoo
-
+# Start as root so Railway volume mounts can be chown'd, then drop to odoo.
 ENTRYPOINT ["/entrypoint.sh"]
 CMD ["odoo"]

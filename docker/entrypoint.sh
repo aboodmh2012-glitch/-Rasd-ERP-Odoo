@@ -9,6 +9,13 @@ TEMPLATE="${ODOO_CONF_TEMPLATE:-/etc/odoo/odoo.conf.template}"
 LOGFILE="${ODOO_LOG_FILE:-/var/log/odoo/odoo.log}"
 INIT_SCRIPT="${MASAR_INIT_SCRIPT:-/opt/masar/init_masar.py}"
 
+# Railway volumes are root-owned on first mount. Fix ownership, then drop privileges.
+if [[ "$(id -u)" -eq 0 ]]; then
+  mkdir -p "${ODOO_DATA_DIR}/filestore" "${ODOO_DATA_DIR}/sessions" "$(dirname "${LOGFILE}")" /etc/odoo
+  chown -R odoo:odoo "${ODOO_DATA_DIR}" "$(dirname "${LOGFILE}")" /etc/odoo /mnt/extra-addons /opt/masar || true
+  exec gosu odoo "$0" "$@"
+fi
+
 mkdir -p "${ODOO_DATA_DIR}/filestore" "${ODOO_DATA_DIR}/sessions" "$(dirname "${LOGFILE}")"
 
 eval "$(
