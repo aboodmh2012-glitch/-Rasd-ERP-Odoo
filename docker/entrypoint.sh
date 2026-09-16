@@ -157,7 +157,7 @@ if [[ "${BASE_READY}" != "1" || "${ODOO_FORCE_INIT:-0}" == "1" ]]; then
   echo "[masar] Initializing clean Odoo database '${DB_NAME}' with modules: ${INIT_MODULES}"
   "${ODOO_BIN[@]}" -d "${DB_NAME}" -i "${INIT_MODULES}" --without-demo="${WITHOUT_DEMO}" --load-language="${LOAD_LANG}" --stop-after-init
   echo "[masar] Applying MASAR company / language / website bootstrap..."
-  "${ODOO_BIN[@]}" shell -d "${DB_NAME}" --stop-after-init < "${INIT_SCRIPT}"
+  "${ODOO_BIN_PATH}" shell -c "${ODOO_RC}" -d "${DB_NAME}" --stop-after-init < "${INIT_SCRIPT}"
 else
   echo "[masar] Existing Odoo database detected — skipping -i init (persistence preserved)."
   if [[ "${ODOO_UPDATE_MODULES:-0}" == "1" ]]; then
@@ -173,7 +173,7 @@ fi
 ADMIN_PW_MARKER="${ODOO_DATA_DIR}/.masar_admin_pw_${MASAR_ADMIN_PASSWORD_TAG:-1}"
 if [[ -n "${MASAR_ADMIN_PASSWORD:-}" && ! -f "${ADMIN_PW_MARKER}" ]]; then
   echo "[masar] Applying admin password from MASAR_ADMIN_PASSWORD (one-shot)..."
-  if "${ODOO_BIN[@]}" shell -d "${DB_NAME}" --stop-after-init <<'PY'
+  if "${ODOO_BIN_PATH}" shell -c "${ODOO_RC}" -d "${DB_NAME}" --stop-after-init <<'PY'
 import os
 admin = env.ref('base.user_admin')
 admin.write({'password': os.environ['MASAR_ADMIN_PASSWORD']})
