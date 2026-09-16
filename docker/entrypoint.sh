@@ -166,6 +166,27 @@ else
   fi
 fi
 
+# One-shot admin password reset. Set MASAR_ADMIN_PASSWORD to (re)set the login
+# password of the 'admin' user. A marker on the persistent volume ensures it
+# runs only once, so a password later changed in the UI is preserved. To force
+# another reset, delete the marker file or bump MASAR_ADMIN_PASSWORD_TAG.
+ADMIN_PW_MARKER="${ODOO_DATA_DIR}/.masar_admin_pw_${MASAR_ADMIN_PASSWORD_TAG:-1}"
+if [[ -n "${MASAR_ADMIN_PASSWORD:-}" && ! -f "${ADMIN_PW_MARKER}" ]]; then
+  echo "[masar] Applying admin password from MASAR_ADMIN_PASSWORD (one-shot)..."
+  if "${ODOO_BIN[@]}" shell -d "${DB_NAME}" --stop-after-init <<'PY'
+import os
+admin = env.ref('base.user_admin')
+admin.write({'password': os.environ['MASAR_ADMIN_PASSWORD']})
+env.cr.commit()
+print('[masar] admin password updated for login:', admin.login)
+PY
+  then
+    touch "${ADMIN_PW_MARKER}"
+  else
+    echo "[masar] WARNING: admin password reset failed; will retry next boot." >&2
+  fi
+fi
+
 if [[ "${1:-odoo}" == "odoo" ]]; then
   echo "[masar] Starting Odoo 19 (MASAR) on port ${HTTP_PORT}..."
   exec "${ODOO_BIN[@]}" -d "${DB_NAME}"
