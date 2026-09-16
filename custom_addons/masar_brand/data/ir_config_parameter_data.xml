@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo noupdate="1">
+    <record id="masar_param_brand" model="ir.config_parameter">
+        <field name="key">masar.brand</field>
+        <field name="value">MASAR</field>
+    </record>
+    <record id="masar_param_company_ar" model="ir.config_parameter">
+        <field name="key">masar.company_name_ar</field>
+        <field name="value">شركة مسار العالمية للأنظمة والحلول المالية</field>
+    </record>
+    <record id="masar_param_company_en" model="ir.config_parameter">
+        <field name="key">masar.company_name_en</field>
+        <field name="value">MASAR Global for Financial Systems &amp; Solutions</field>
+    </record>
+</odoo>
