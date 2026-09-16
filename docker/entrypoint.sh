@@ -1,21 +1,20 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-ODOO_HOME="${ODOO_HOME:-/opt/odoo}"
+# MASAR entrypoint for official odoo:19 image on Railway.
+ODOO_BIN_PATH="${ODOO_BIN_PATH:-/usr/bin/odoo}"
 ODOO_DATA_DIR="${ODOO_DATA_DIR:-/var/lib/odoo}"
 ODOO_RC="${ODOO_RC:-/etc/odoo/odoo.conf}"
 TEMPLATE="${ODOO_CONF_TEMPLATE:-/etc/odoo/odoo.conf.template}"
 LOGFILE="${ODOO_LOG_FILE:-/var/log/odoo/odoo.log}"
+INIT_SCRIPT="${MASAR_INIT_SCRIPT:-/opt/masar/init_masar.py}"
 
 mkdir -p "${ODOO_DATA_DIR}/filestore" "${ODOO_DATA_DIR}/sessions" "$(dirname "${LOGFILE}")"
 
-# ---------- Database connection (Railway Postgres via DATABASE_URL) ----------
-# Do NOT reuse generic USER/HOST/PORT — they conflict with the OS user and Railway HTTP PORT.
 eval "$(
 python3 - <<'PY'
 import os, urllib.parse, shlex
 url = os.environ.get("DATABASE_URL") or os.environ.get("POSTGRES_URL") or os.environ.get("DATABASE_PRIVATE_URL") or ""
-vals = {}
 if url:
     u = urllib.parse.urlparse(url)
     vals = {
@@ -39,7 +38,6 @@ PY
 )"
 
 DB_NAME="${ODOO_DB_NAME:-masar}"
-# Never reuse Railway's default logical DB name "railway" for Odoo runtime
 if [[ -z "${ODOO_DB_NAME:-}" && "${DB_NAME_FROM_URL}" != "" && "${DB_NAME_FROM_URL}" != "railway" && "${DB_NAME_FROM_URL}" != "postgres" ]]; then
   DB_NAME="${DB_NAME_FROM_URL}"
 fi
@@ -86,30 +84,18 @@ python3 - <<'PY'
 import os
 from pathlib import Path
 template = Path(os.environ.get("ODOO_CONF_TEMPLATE", "/etc/odoo/odoo.conf.template")).read_text()
-mapping = {
-    "DB_HOST": os.environ["DB_HOST"],
-    "DB_PORT": os.environ["DB_PORT"],
-    "DB_USER": os.environ["DB_USER"],
-    "DB_PASSWORD": os.environ["DB_PASSWORD"],
-    "DB_NAME": os.environ["DB_NAME"],
-    "ADMIN_PASSWD": os.environ["ADMIN_PASSWD"],
-    "HTTP_PORT": os.environ["HTTP_PORT"],
-    "WORKERS": os.environ["WORKERS"],
-    "PROXY_MODE": os.environ["PROXY_MODE"],
-    "LIST_DB": os.environ["LIST_DB"],
-    "DB_FILTER": os.environ["DB_FILTER"],
-    "ODOO_DATA_DIR": os.environ["ODOO_DATA_DIR"],
-    "LOGFILE": os.environ["LOGFILE"],
-}
-out = template
+mapping = {k: os.environ[k] for k in [
+    "DB_HOST","DB_PORT","DB_USER","DB_PASSWORD","DB_NAME","ADMIN_PASSWD",
+    "HTTP_PORT","WORKERS","PROXY_MODE","LIST_DB","DB_FILTER","ODOO_DATA_DIR","LOGFILE",
+]}
+out = Path(os.environ.get("ODOO_CONF_TEMPLATE", "/etc/odoo/odoo.conf.template")).read_text()
 for key, value in mapping.items():
     out = out.replace("${" + key + "}", str(value))
 Path(os.environ.get("ODOO_RC", "/etc/odoo/odoo.conf")).write_text(out)
 print("[masar] Wrote", os.environ.get("ODOO_RC", "/etc/odoo/odoo.conf"))
 PY
 
-cd "${ODOO_HOME}"
-ODOO_BIN=(python3 "${ODOO_HOME}/odoo-bin" -c "${ODOO_RC}")
+ODOO_BIN=("${ODOO_BIN_PATH}" -c "${ODOO_RC}")
 
 BASE_READY="$(psql -h "${DB_HOST}" -p "${DB_PORT}" -U "${DB_USER}" -d "${DB_NAME}" -tAc \
   "SELECT 1 FROM information_schema.tables WHERE table_name='ir_module_module' LIMIT 1" 2>/dev/null || true)"
@@ -118,7 +104,7 @@ if [[ "${BASE_READY}" != "1" || "${ODOO_FORCE_INIT:-0}" == "1" ]]; then
   echo "[masar] Initializing clean Odoo database '${DB_NAME}' with modules: ${INIT_MODULES}"
   "${ODOO_BIN[@]}" -d "${DB_NAME}" -i "${INIT_MODULES}" --without-demo="${WITHOUT_DEMO}" --load-language="${LOAD_LANG}" --stop-after-init
   echo "[masar] Applying MASAR company / language / website bootstrap..."
-  "${ODOO_BIN[@]}" shell -d "${DB_NAME}" --stop-after-init < /opt/odoo/docker/init_masar.py
+  "${ODOO_BIN[@]}" shell -d "${DB_NAME}" --stop-after-init < "${INIT_SCRIPT}"
 else
   echo "[masar] Existing Odoo database detected — skipping -i init (persistence preserved)."
   if [[ "${ODOO_UPDATE_MODULES:-0}" == "1" ]]; then

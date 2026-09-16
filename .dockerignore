@@ -5,19 +5,28 @@
 **/*.pyc
 **/*.pyo
 **/.DS_Store
+
+# Exclude full Odoo source from Docker build context (use official odoo:19 image).
+# Source remains in git for an independent MASAR Odoo 19 codebase.
+odoo/
+addons/
+debian/
 doc/
 docs/
-debian/
-setup/win32/
+setup/
 *.md
 !README.md
 .weblate.json
 CONTRIBUTING.md
 COPYRIGHT
 SECURITY.md
+LICENSE
 ruff.toml
 setup.cfg
+setup.py
 MANIFEST.in
+odoo-bin
+requirements.txt
 .cursor
 tmp/
 filestore/
@@ -25,3 +34,4 @@ filestore/
 node_modules/
 custom_addons/rasd/
 custom_addons/helpdesk_community_pro/
+scripts/
