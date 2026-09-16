@@ -3,7 +3,9 @@ builder = "DOCKERFILE"
 dockerfilePath = "Dockerfile"
 
 [deploy]
-healthcheckPath = "/web/login"
+# Odoo's /web/login redirects (303) to establish a DB session, which Railway
+# treats as unhealthy. Use a static asset that returns 200 without a session.
+healthcheckPath = "/web/static/img/favicon.ico"
 healthcheckTimeout = 900
 restartPolicyType = "ON_FAILURE"
 restartPolicyMaxRetries = 5
