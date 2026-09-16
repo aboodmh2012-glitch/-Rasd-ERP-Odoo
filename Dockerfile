@@ -13,9 +13,10 @@ ENV LANG=C.UTF-8 \
 RUN apt-get update && DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends \
         curl \
         postgresql-client \
-        rtlcss \
+        npm \
         fonts-noto-core \
         fonts-noto-ui-core \
+    && npm install -g rtlcss \
     && rm -rf /var/lib/apt/lists/*
 
 # MASAR custom addons (independent from Rasd modules)
