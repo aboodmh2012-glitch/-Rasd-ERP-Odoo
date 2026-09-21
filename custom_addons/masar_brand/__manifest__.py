@@ -1,8 +1,8 @@
 {
     "name": "MASAR Brand",
-    "version": "19.0.1.0.0",
-    "summary": "MASAR company branding, bilingual AR/EN defaults, and website readiness",
-    "category": "Hidden",
+    "version": "19.0.1.1.0",
+    "summary": "MASAR dark website theme, solutions cards, and company branding",
+    "category": "Website",
     "author": "MASAR",
     "website": "https://masar.sa",
     "license": "LGPL-3",
@@ -26,8 +26,13 @@
         "data/res_company_data.xml",
         "data/ir_config_parameter_data.xml",
         "data/website_data.xml",
+        "views/website_templates.xml",
     ],
-    "assets": {},
+    "assets": {
+        "web.assets_frontend": [
+            "masar_brand/static/src/scss/masar_website.scss",
+        ],
+    },
     "installable": true,
     "application": false,
     "auto_install": false,

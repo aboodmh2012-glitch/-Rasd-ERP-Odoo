@@ -1,0 +1,191 @@
+/* MASAR dark theme — primary surface. Light theme can override later. */
+:root {
+    --masar-bg: #0a0a0a;
+    --masar-surface: #141414;
+    --masar-card: #1a1a1a;
+    --masar-border: rgba(255, 255, 255, 0.1);
+    --masar-orange: #ff5a1f;
+    --masar-orange-soft: rgba(255, 90, 31, 0.15);
+    --masar-text: #ffffff;
+    --masar-muted: rgba(255, 255, 255, 0.72);
+    --masar-radius: 18px;
+}
+
+/* Force dark website chrome */
+#wrapwrap,
+#wrapwrap > main,
+#wrap,
+body {
+    background-color: var(--masar-bg) !important;
+    color: var(--masar-text);
+}
+
+#wrapwrap .navbar,
+#wrapwrap header#top,
+#wrapwrap .o_header_standard,
+#wrapwrap footer,
+#wrapwrap .o_footer {
+    background-color: #000 !important;
+    color: var(--masar-text) !important;
+    border-color: var(--masar-border) !important;
+}
+
+#wrapwrap .navbar .nav-link,
+#wrapwrap .navbar-brand,
+#wrapwrap footer a,
+#wrapwrap .o_footer a {
+    color: var(--masar-text) !important;
+}
+
+#wrapwrap .navbar .nav-link:hover,
+#wrapwrap .navbar .nav-link.active {
+    color: var(--masar-orange) !important;
+}
+
+#wrapwrap .btn-primary {
+    background-color: var(--masar-orange) !important;
+    border-color: var(--masar-orange) !important;
+    color: #fff !important;
+}
+
+#wrapwrap .btn-outline-primary,
+#wrapwrap .btn-secondary {
+    border-color: rgba(255, 255, 255, 0.45) !important;
+    color: #fff !important;
+    background: transparent !important;
+}
+
+/* ---------- Our Solutions ---------- */
+.s_masar_solutions {
+    background: var(--masar-bg);
+    color: var(--masar-text);
+    padding: 72px 0 88px;
+}
+
+.s_masar_solutions .masar-eyebrow {
+    color: var(--masar-orange);
+    font-size: 0.95rem;
+    font-weight: 600;
+    letter-spacing: 0.04em;
+    margin-bottom: 0.75rem;
+}
+
+.s_masar_solutions .masar-title {
+    color: #fff;
+    font-size: clamp(1.75rem, 3vw, 2.6rem);
+    font-weight: 700;
+    line-height: 1.2;
+    margin-bottom: 0.85rem;
+}
+
+.s_masar_solutions .masar-lead {
+    color: var(--masar-muted);
+    max-width: 46rem;
+    margin: 0 auto 2.75rem;
+    font-size: 1.05rem;
+    line-height: 1.6;
+}
+
+.masar-solution-card {
+    background: var(--masar-card);
+    border: 1px solid var(--masar-border);
+    border-radius: var(--masar-radius);
+    padding: 1.35rem 1.2rem 1.4rem;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    transition: border-color 0.2s ease, transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.masar-solution-card:hover {
+    border-color: rgba(255, 90, 31, 0.55);
+    transform: translateY(-4px);
+    box-shadow: 0 18px 40px rgba(0, 0, 0, 0.45);
+}
+
+.masar-solution-card__title {
+    color: #fff;
+    font-size: 1.15rem;
+    font-weight: 700;
+    line-height: 1.3;
+    margin: 0 0 0.75rem;
+    min-height: 2.6em;
+}
+
+.masar-solution-card__badge {
+    display: inline-block;
+    align-self: flex-start;
+    background: var(--masar-orange);
+    color: #fff;
+    font-size: 0.78rem;
+    font-weight: 600;
+    padding: 0.28rem 0.7rem;
+    border-radius: 6px;
+    margin-bottom: 1rem;
+    line-height: 1.3;
+}
+
+.masar-solution-card__media {
+    width: 100%;
+    aspect-ratio: 1 / 1;
+    border-radius: 12px;
+    overflow: hidden;
+    background: #0d0d0d;
+    margin-bottom: 1.1rem;
+}
+
+.masar-solution-card__media img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+}
+
+.masar-solution-card__features {
+    list-style: none;
+    padding: 0;
+    margin: 0 0 1.25rem;
+    flex: 1 1 auto;
+}
+
+.masar-solution-card__features li {
+    position: relative;
+    padding-inline-start: 1.45rem;
+    margin-bottom: 0.55rem;
+    color: var(--masar-muted);
+    font-size: 0.92rem;
+    line-height: 1.45;
+}
+
+.masar-solution-card__features li::before {
+    content: "";
+    position: absolute;
+    inset-inline-start: 0;
+    top: 0.28rem;
+    width: 0.95rem;
+    height: 0.95rem;
+    background-color: var(--masar-orange);
+    -webkit-mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Cpath fill='black' d='M6.5 11.5 3 8l1.2-1.2 2.3 2.3 5.3-5.3L13 5.2z'/%3E%3C/svg%3E") center / contain no-repeat;
+    mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Cpath fill='black' d='M6.5 11.5 3 8l1.2-1.2 2.3 2.3 5.3-5.3L13 5.2z'/%3E%3C/svg%3E") center / contain no-repeat;
+}
+
+.masar-solution-card__link {
+    color: var(--masar-orange) !important;
+    font-weight: 600;
+    font-size: 0.95rem;
+    text-decoration: none !important;
+    margin-top: auto;
+}
+
+.masar-solution-card__link:hover {
+    color: #ff7a4a !important;
+}
+
+@media (max-width: 991.98px) {
+    .s_masar_solutions {
+        padding: 48px 0 56px;
+    }
+    .masar-solution-card__title {
+        min-height: 0;
+    }
+}

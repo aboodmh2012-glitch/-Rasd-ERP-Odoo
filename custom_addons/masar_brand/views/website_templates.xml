@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Snippet: Our Solutions (4 service cards) -->
+    <template id="s_masar_solutions" name="MASAR Solutions">
+        <section class="s_masar_solutions o_colored_level" data-snippet="s_masar_solutions" data-name="MASAR Solutions">
+            <div class="container">
+                <div class="text-center">
+                    <div class="masar-eyebrow">Our Solutions</div>
+                    <h2 class="masar-title">Complete Solutions Tailored to Your Business.</h2>
+                    <p class="masar-lead">
+                        From ATM networks and card issuing to payment gateways and POS —
+                        MASAR delivers end-to-end digital payment infrastructure.
+                    </p>
+                </div>
+                <div class="row g-4">
+                    <!-- ATM -->
+                    <div class="col-12 col-md-6 col-xl-3">
+                        <article class="masar-solution-card">
+                            <h3 class="masar-solution-card__title">ATM (Automatic Teller Machine)</h3>
+                            <span class="masar-solution-card__badge">Smart ATM Network</span>
+                            <div class="masar-solution-card__media">
+                                <img src="/masar_brand/static/src/img/masar-atm.png"
+                                     alt="MASAR ATM"
+                                     loading="lazy"/>
+                            </div>
+                            <ul class="masar-solution-card__features">
+                                <li>ATM network management and operation</li>
+                                <li>Cash deposit and withdrawal</li>
+                                <li>Real-time reporting and monitoring</li>
+                                <li>Full integration with local banking systems</li>
+                            </ul>
+                            <a href="/contactus" class="masar-solution-card__link">Learn More ›</a>
+                        </article>
+                    </div>
+                    <!-- Cards -->
+                    <div class="col-12 col-md-6 col-xl-3">
+                        <article class="masar-solution-card">
+                            <h3 class="masar-solution-card__title">Card Management and Issuing</h3>
+                            <span class="masar-solution-card__badge">End-to-end card issuance</span>
+                            <div class="masar-solution-card__media">
+                                <img src="/masar_brand/static/src/img/masar-cards.png"
+                                     alt="MASAR Card Management"
+                                     loading="lazy"/>
+                            </div>
+                            <ul class="masar-solution-card__features">
+                                <li>Electronic card issuance</li>
+                                <li>PIN management</li>
+                                <li>Card and account linking</li>
+                                <li>Full integration with our platforms</li>
+                            </ul>
+                            <a href="/contactus" class="masar-solution-card__link">Learn More ›</a>
+                        </article>
+                    </div>
+                    <!-- Gateway -->
+                    <div class="col-12 col-md-6 col-xl-3">
+                        <article class="masar-solution-card">
+                            <h3 class="masar-solution-card__title">Payment Gateway</h3>
+                            <span class="masar-solution-card__badge">Fast &amp; Secure Integration</span>
+                            <div class="masar-solution-card__media">
+                                <img src="/masar_brand/static/src/img/masar-gateway.png"
+                                     alt="MASAR Payment Gateway"
+                                     loading="lazy"/>
+                            </div>
+                            <ul class="masar-solution-card__features">
+                                <li>Simple (API) integration</li>
+                                <li>Support for all local and international payment methods</li>
+                                <li>Transaction monitoring and fraud protection</li>
+                                <li>Compatible with all industries</li>
+                            </ul>
+                            <a href="/contactus" class="masar-solution-card__link">Learn More ›</a>
+                        </article>
+                    </div>
+                    <!-- POS -->
+                    <div class="col-12 col-md-6 col-xl-3">
+                        <article class="masar-solution-card">
+                            <h3 class="masar-solution-card__title">POS Solutions</h3>
+                            <span class="masar-solution-card__badge">Smart POS Devices</span>
+                            <div class="masar-solution-card__media">
+                                <img src="/masar_brand/static/src/img/masar-pos.png"
+                                     alt="MASAR POS"
+                                     loading="lazy"/>
+                            </div>
+                            <ul class="masar-solution-card__features">
+                                <li>Smart and secure devices</li>
+                                <li>Accept all payment methods</li>
+                                <li>Real-time reports</li>
+                                <li>Easy integration with cash registers and systems</li>
+                            </ul>
+                            <a href="/contactus" class="masar-solution-card__link">Learn More ›</a>
+                        </article>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </template>
+
+    <!-- Inject into homepage structure -->
+    <template id="masar_homepage_solutions" inherit_id="website.homepage" name="MASAR Homepage Solutions">
+        <xpath expr="//div[@id='wrap']" position="inside">
+            <t t-call="masar_brand.s_masar_solutions"/>
+        </xpath>
+    </template>
+
+    <!-- Make snippet available in website builder -->
+    <template id="masar_snippets" inherit_id="website.snippets" name="MASAR Snippets">
+        <xpath expr="//snippets[@id='snippet_structure']" position="inside">
+            <t t-snippet="masar_brand.s_masar_solutions"
+               string="MASAR Solutions"
+               group="columns">
+                <keywords>masar solutions atm cards gateway pos payments</keywords>
+            </t>
+        </xpath>
+    </template>
+</odoo>
