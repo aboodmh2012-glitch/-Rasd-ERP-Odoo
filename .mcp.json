@@ -1,0 +1,11 @@
+{
+  "mcpServers": {
+    "odoo-masar": {
+      "type": "http",
+      "url": "https://odoo-production-438a.up.railway.app/mcp",
+      "headers": {
+        "Authorization": "Bearer ${ODOO_MCP_API_KEY}"
+      }
+    }
+  }
+}
