@@ -1,37 +1,78 @@
-# Odoo
+# MASAR — Odoo 19
 
-[![Build Status](https://runbot.odoo.com/runbot/badge/flat/1/master.svg)](https://runbot.odoo.com/runbot)
-[![Tech Doc](https://img.shields.io/badge/master-docs-875A7B.svg?style=flat&colorA=8F8F8F)](https://www.odoo.com/documentation/master)
-[![Help](https://img.shields.io/badge/master-help-875A7B.svg?style=flat&colorA=8F8F8F)](https://www.odoo.com/forum/help-1)
-[![Nightly Builds](https://img.shields.io/badge/master-nightly-875A7B.svg?style=flat&colorA=8F8F8F)](https://nightly.odoo.com/)
+**شركة مسار العالمية للأنظمة والحلول المالية**  
+Brand: **MASAR**
 
-Odoo is a suite of web based open source business apps.
+Independent Odoo 19 Community deployment prepared from the Rasd Odoo 19 source tree, without operational databases or filestore data.
 
-The main Odoo Apps include an [Open Source CRM](https://www.odoo.com/page/crm),
-[Website Builder](https://www.odoo.com/app/website),
-[eCommerce](https://www.odoo.com/app/ecommerce),
-[Warehouse Management](https://www.odoo.com/app/inventory),
-[Project Management](https://www.odoo.com/app/project),
-[Billing &amp; Accounting](https://www.odoo.com/app/accounting),
-[Point of Sale](https://www.odoo.com/app/point-of-sale-shop),
-[Human Resources](https://www.odoo.com/app/employees),
-[Marketing](https://www.odoo.com/app/social-marketing),
-[Manufacturing](https://www.odoo.com/app/manufacturing),
-[...](https://www.odoo.com/)
+## Stack
 
-Odoo Apps can be used as stand-alone applications, but they also integrate seamlessly so you get
-a full-featured [Open Source ERP](https://www.odoo.com) when you install several Apps.
+- Odoo 19.0 (Community)
+- PostgreSQL (Railway plugin)
+- Persistent volume at `/var/lib/odoo` (filestore + sessions)
+- Custom addon: `custom_addons/masar_brand`
 
-## Getting started with Odoo
+## Native apps prepared on first boot
 
-For a standard installation please follow the [Setup instructions](https://www.odoo.com/documentation/master/administration/install/install.html)
-from the documentation.
+- Contacts
+- CRM
+- Sales (`sale_management`)
+- Accounting (`account`) + Analytics
+- Project
+- Employees (`hr`)
+- Calendar
+- Website + Website CRM
+- Email Marketing (`mass_mailing`)
+- Dashboards (`board`)
+- Saudi localization (`l10n_sa`)
+- MASAR brand (`masar_brand`)
 
-To learn the software, we recommend the [Odoo eLearning](https://www.odoo.com/slides),
-or [Scale-up, the business game](https://www.odoo.com/page/scale-up-business-game).
-Developers can start with [the developer tutorials](https://www.odoo.com/documentation/master/developer/howtos.html).
+Languages: Arabic (`ar_001`, RTL) + English (`en_US`).
 
-## Security
+## Railway
 
-If you believe you have found a security issue, check our [Responsible Disclosure page](https://www.odoo.com/security-report)
-for details and get in touch with us via email.
+Build uses the root `Dockerfile`. Required service variables:
+
+| Variable | Purpose |
+|----------|---------|
+| `DATABASE_URL` | Provided by Railway PostgreSQL |
+| `ODOO_DB_NAME` | Defaults to `masar` |
+| `ODOO_ADMIN_PASSWD` | Master DB manager password |
+| `PORT` | Provided by Railway (HTTP) |
+
+Optional:
+
+- `ODOO_FORCE_INIT=1` — force re-init (destructive)
+- `ODOO_UPDATE_MODULES=1` — run `-u` on start
+- `ODOO_WORKERS` — multi-worker mode (default `0` for Railway)
+
+Volume mount (see `railway.toml`): `masar_odoo_data` → `/var/lib/odoo`.
+
+## Local run (Docker)
+
+```bash
+docker build -t masar-odoo .
+docker run --rm -p 8069:8069 \
+  -e DATABASE_URL=postgres://odoo:odoo@host:5432/postgres \
+  -e ODOO_DB_NAME=masar \
+  -e ODOO_ADMIN_PASSWD=admin \
+  -v masar_data:/var/lib/odoo \
+  masar-odoo
+```
+
+Default login after first init: `admin` / `admin` (change immediately).
+
+## Repository layout
+
+```
+addons/           # Odoo community apps
+odoo/             # Odoo server core
+custom_addons/    # MASAR-only custom modules
+docker/           # entrypoint, conf template, bootstrap
+Dockerfile
+railway.toml
+requirements.txt
+odoo-bin
+```
+
+No production DB dumps, filestore, or runtime secrets are stored in this repository.

@@ -8,6 +8,8 @@ _build/
 !.github
 !.mailmap
 !.weblate.json
+!.dockerignore
+
 # compiled python files
 *.py[co]
 __pycache__/
@@ -18,8 +20,14 @@ __pycache__/
 # hg stuff
 *.orig
 status
-# odoo filestore
+# odoo filestore / runtime data (never commit)
 odoo/filestore
+/filestore/
+/sessions/
+*.sql
+*.dump
+*.backup
+
 # maintenance migration scripts
 odoo/addons/base/maintenance
 # windows installation config file

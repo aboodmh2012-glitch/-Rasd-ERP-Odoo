@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo noupdate="1">
+    <record id="base.main_company" model="res.company">
+        <field name="name">شركة مسار العالمية للأنظمة والحلول المالية</field>
+        <field name="masar_brand_name">MASAR</field>
+        <field name="email">info@masar.sa</field>
+        <field name="website">https://masar.sa</field>
+    </record>
+
+    <record id="base.main_partner" model="res.partner">
+        <field name="name">شركة مسار العالمية للأنظمة والحلول المالية</field>
+        <field name="is_company" eval="True"/>
+        <field name="lang">ar_001</field>
+    </record>
+</odoo>

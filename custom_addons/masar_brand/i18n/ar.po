@@ -1,0 +1,126 @@
+#. module: masar_brand
+msgid ""
+msgstr ""
+"Project-Id-Version: MASAR Brand 19.0\n"
+"Language: ar\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=6; plural=(n==0 ? 0 : n==1 ? 1 : n==2 ? 2 : n%100>=3 && n%100<=10 ? 3 : n%100>=11 && n%100<=99 ? 4 : 5);\n"
+
+#. module: masar_brand
+#: model:ir.model.fields,field_description:masar_brand.field_res_company__masar_brand_name
+msgid "Brand"
+msgstr "العلامة التجارية"
+
+#. module: masar_brand
+msgid "Our Solutions"
+msgstr "حلولنا"
+
+#. module: masar_brand
+msgid "Complete Solutions Tailored to Your Business."
+msgstr "حلول متكاملة مصممة خصيصًا لأعمالك."
+
+#. module: masar_brand
+msgid "From ATM networks and card issuing to payment gateways and POS — MASAR delivers end-to-end digital payment infrastructure."
+msgstr "من شبكات أجهزة الصراف الآلي وإصدار البطاقات إلى بوابات الدفع ونقاط البيع — تقدّم مسار بنية مدفوعات رقمية متكاملة."
+
+#. module: masar_brand
+msgid "ATM (Automatic Teller Machine)"
+msgstr "أجهزة الصراف الآلي (ATM)"
+
+#. module: masar_brand
+msgid "Smart ATM Network"
+msgstr "شبكة صراف آلي ذكية"
+
+#. module: masar_brand
+msgid "ATM network management and operation"
+msgstr "إدارة وتشغيل شبكة أجهزة الصراف الآلي"
+
+#. module: masar_brand
+msgid "Cash deposit and withdrawal"
+msgstr "الإيداع والسحب النقدي"
+
+#. module: masar_brand
+msgid "Real-time reporting and monitoring"
+msgstr "تقارير ومراقبة لحظية"
+
+#. module: masar_brand
+msgid "Full integration with local banking systems"
+msgstr "تكامل كامل مع أنظمة البنوك المحلية"
+
+#. module: masar_brand
+msgid "Card Management and Issuing"
+msgstr "إدارة وإصدار البطاقات"
+
+#. module: masar_brand
+msgid "End-to-end card issuance"
+msgstr "إصدار بطاقات من البداية للنهاية"
+
+#. module: masar_brand
+msgid "Electronic card issuance"
+msgstr "إصدار إلكتروني للبطاقات"
+
+#. module: masar_brand
+msgid "PIN management"
+msgstr "إدارة رقم التعريف الشخصي (PIN)"
+
+#. module: masar_brand
+msgid "Card and account linking"
+msgstr "ربط البطاقة بالحساب"
+
+#. module: masar_brand
+msgid "Full integration with our platforms"
+msgstr "تكامل كامل مع منصاتنا"
+
+#. module: masar_brand
+msgid "Payment Gateway"
+msgstr "بوابة الدفع"
+
+#. module: masar_brand
+msgid "Fast & Secure Integration"
+msgstr "تكامل سريع وآمن"
+
+#. module: masar_brand
+msgid "Simple (API) integration"
+msgstr "تكامل بسيط عبر (API)"
+
+#. module: masar_brand
+msgid "Support for all local and international payment methods"
+msgstr "دعم جميع وسائل الدفع المحلية والدولية"
+
+#. module: masar_brand
+msgid "Transaction monitoring and fraud protection"
+msgstr "مراقبة العمليات والحماية من الاحتيال"
+
+#. module: masar_brand
+msgid "Compatible with all industries"
+msgstr "متوافق مع جميع القطاعات"
+
+#. module: masar_brand
+msgid "POS Solutions"
+msgstr "حلول نقاط البيع (POS)"
+
+#. module: masar_brand
+msgid "Smart POS Devices"
+msgstr "أجهزة نقاط بيع ذكية"
+
+#. module: masar_brand
+msgid "Smart and secure devices"
+msgstr "أجهزة ذكية وآمنة"
+
+#. module: masar_brand
+msgid "Accept all payment methods"
+msgstr "قبول جميع وسائل الدفع"
+
+#. module: masar_brand
+msgid "Real-time reports"
+msgstr "تقارير لحظية"
+
+#. module: masar_brand
+msgid "Easy integration with cash registers and systems"
+msgstr "تكامل سهل مع صناديق النقد والأنظمة"
+
+#. module: masar_brand
+msgid "Learn More ›"
+msgstr "اعرف المزيد ›"

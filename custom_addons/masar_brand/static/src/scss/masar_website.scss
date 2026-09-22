@@ -1,0 +1,195 @@
+/* MASAR dark theme — tokens and components. Font-family inherits from theme. */
+:root {
+    --masar-bg: #0a0a0a;
+    --masar-bg-alt: #111111;
+    --masar-card: #1a1a1a;
+    --masar-border: rgba(255, 255, 255, 0.08);
+    --masar-orange: #ff5a1f;
+    --masar-orange-soft: rgba(255, 90, 31, 0.14);
+    --masar-text: #ffffff;
+    --masar-muted: rgba(255, 255, 255, 0.72);
+    --masar-radius: 16px;
+}
+
+#wrapwrap,
+#wrapwrap > main,
+#wrap,
+body {
+    background-color: var(--masar-bg) !important;
+    color: var(--masar-text);
+}
+
+#wrapwrap .navbar,
+#wrapwrap header#top,
+#wrapwrap .o_header_standard,
+#wrapwrap footer,
+#wrapwrap .o_footer {
+    background-color: #000 !important;
+    color: var(--masar-text) !important;
+    border-color: var(--masar-border) !important;
+}
+
+#wrapwrap .navbar .nav-link,
+#wrapwrap .navbar-brand,
+#wrapwrap footer a,
+#wrapwrap .o_footer a {
+    color: var(--masar-text) !important;
+}
+
+#wrapwrap .navbar .nav-link:hover,
+#wrapwrap .navbar .nav-link.active {
+    color: var(--masar-orange) !important;
+}
+
+#wrapwrap .btn-primary {
+    background-color: var(--masar-orange) !important;
+    border-color: var(--masar-orange) !important;
+    color: #fff !important;
+}
+
+.s_masar_solutions {
+    background: var(--masar-bg-alt);
+    color: var(--masar-text);
+    padding: 72px 0 88px;
+    border-block-start: 1px solid var(--masar-border);
+}
+
+.s_masar_solutions .masar-eyebrow {
+    color: var(--masar-orange);
+    font-size: 0.95rem;
+    font-weight: 600;
+    letter-spacing: 0.04em;
+    margin-bottom: 0.75rem;
+}
+
+.s_masar_solutions .masar-title {
+    color: #fff;
+    font-size: clamp(1.2rem, 2.1vw, 1.85rem);
+    font-weight: 700;
+    line-height: 1.35;
+    margin: 0 auto 0.85rem;
+    width: max-content;
+    max-width: 100%;
+    white-space: nowrap;
+    text-align: center;
+}
+
+.s_masar_solutions .masar-lead {
+    color: var(--masar-muted);
+    max-width: 46rem;
+    margin: 0 auto 2.75rem;
+    font-size: 1.05rem;
+    line-height: 1.6;
+}
+
+.masar-solution-card {
+    background: var(--masar-card);
+    border: 1px solid var(--masar-border);
+    border-radius: var(--masar-radius);
+    padding: 1.25rem 1.15rem 1.35rem;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    transition: border-color 0.2s ease, transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.masar-solution-card:hover {
+    border-color: rgba(255, 90, 31, 0.45);
+    transform: translateY(-3px);
+    box-shadow: 0 16px 36px rgba(0, 0, 0, 0.4);
+}
+
+.masar-solution-card__top {
+    display: flex;
+    align-items: center;
+    gap: 0.7rem;
+    margin-bottom: 0.7rem;
+}
+
+.masar-solution-card__icon {
+    width: 2.35rem;
+    height: 2.35rem;
+    border-radius: 10px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--masar-orange-soft);
+    color: var(--masar-orange);
+    flex: 0 0 auto;
+}
+
+.masar-solution-card__title {
+    color: #fff;
+    font-size: 1.05rem;
+    font-weight: 700;
+    line-height: 1.35;
+    margin: 0;
+}
+
+.masar-solution-card__badge {
+    display: inline-block;
+    align-self: flex-start;
+    background: var(--masar-orange);
+    color: #fff;
+    font-size: 0.75rem;
+    font-weight: 600;
+    padding: 0.28rem 0.65rem;
+    border-radius: 6px;
+    margin-bottom: 0.9rem;
+}
+
+.masar-solution-card__media {
+    width: 100%;
+    aspect-ratio: 1 / 1;
+    border-radius: 12px;
+    overflow: hidden;
+    background: #0d0d0d;
+    margin-bottom: 1rem;
+    border: 1px solid var(--masar-border);
+}
+
+.masar-solution-card__media img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+}
+
+.masar-solution-card__features {
+    list-style: none;
+    padding: 0;
+    margin: 0 0 1.15rem;
+    flex: 1 1 auto;
+}
+
+.masar-solution-card__features li {
+    position: relative;
+    padding-inline-start: 1.45rem;
+    margin-bottom: 0.5rem;
+    color: var(--masar-muted);
+    font-size: 0.9rem;
+    line-height: 1.5;
+}
+
+.masar-solution-card__link {
+    color: var(--masar-orange) !important;
+    font-weight: 600;
+    font-size: 0.92rem;
+    text-decoration: none !important;
+    margin-top: auto;
+}
+
+.masar-solution-card__link:hover {
+    color: #ff7a4a !important;
+}
+
+@media (max-width: 991.98px) {
+    .s_masar_solutions {
+        padding: 48px 0 56px;
+    }
+
+    .s_masar_solutions .masar-title {
+        white-space: normal;
+        width: auto;
+    }
+}

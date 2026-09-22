@@ -1,0 +1,195 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+# MASAR entrypoint for official odoo:19 image on Railway.
+ODOO_BIN_PATH="${ODOO_BIN_PATH:-/usr/bin/odoo}"
+ODOO_DATA_DIR="${ODOO_DATA_DIR:-/var/lib/odoo}"
+ODOO_RC="${ODOO_RC:-/etc/odoo/odoo.conf}"
+TEMPLATE="${ODOO_CONF_TEMPLATE:-/etc/odoo/odoo.conf.template}"
+LOGFILE="${ODOO_LOG_FILE:-/var/log/odoo/odoo.log}"
+INIT_SCRIPT="${MASAR_INIT_SCRIPT:-/opt/masar/init_masar.py}"
+
+# Railway volumes are root-owned on first mount. Fix ownership, then drop privileges.
+if [[ "$(id -u)" -eq 0 ]]; then
+  mkdir -p "${ODOO_DATA_DIR}/filestore" "${ODOO_DATA_DIR}/sessions" "$(dirname "${LOGFILE}")" /etc/odoo
+  chown -R odoo:odoo "${ODOO_DATA_DIR}" "$(dirname "${LOGFILE}")" /etc/odoo /mnt/extra-addons /opt/masar || true
+  exec gosu odoo "$0" "$@"
+fi
+
+mkdir -p "${ODOO_DATA_DIR}/filestore" "${ODOO_DATA_DIR}/sessions" "$(dirname "${LOGFILE}")"
+
+eval "$(
+python3 - <<'PY'
+import os, urllib.parse, shlex
+url = os.environ.get("DATABASE_URL") or os.environ.get("POSTGRES_URL") or os.environ.get("DATABASE_PRIVATE_URL") or ""
+if url:
+    u = urllib.parse.urlparse(url)
+    vals = {
+        "DB_HOST": u.hostname or "",
+        "DB_PORT": str(u.port or 5432),
+        "DB_USER": urllib.parse.unquote(u.username or ""),
+        "DB_PASSWORD": urllib.parse.unquote(u.password or ""),
+        "DB_NAME_FROM_URL": (u.path or "").lstrip("/"),
+    }
+else:
+    vals = {
+        "DB_HOST": os.environ.get("PGHOST") or os.environ.get("POSTGRES_HOST") or "",
+        "DB_PORT": os.environ.get("PGPORT") or os.environ.get("POSTGRES_PORT") or "5432",
+        "DB_USER": os.environ.get("PGUSER") or os.environ.get("POSTGRES_USER") or "odoo",
+        "DB_PASSWORD": os.environ.get("PGPASSWORD") or os.environ.get("POSTGRES_PASSWORD") or "",
+        "DB_NAME_FROM_URL": os.environ.get("PGDATABASE") or os.environ.get("POSTGRES_DB") or "",
+    }
+for k, v in vals.items():
+    print(f"{k}={shlex.quote(v)}")
+PY
+)"
+
+DB_NAME="${ODOO_DB_NAME:-masar}"
+if [[ -z "${ODOO_DB_NAME:-}" && "${DB_NAME_FROM_URL}" != "" && "${DB_NAME_FROM_URL}" != "railway" && "${DB_NAME_FROM_URL}" != "postgres" ]]; then
+  DB_NAME="${DB_NAME_FROM_URL}"
+fi
+
+ADMIN_PASSWD="${ODOO_ADMIN_PASSWD:-${ODOO_ADMIN_PASSWORD:-admin}}"
+HTTP_PORT="${PORT:-8069}"
+WORKERS="${ODOO_WORKERS:-0}"
+PROXY_MODE="${ODOO_PROXY_MODE:-True}"
+LIST_DB="${ODOO_LIST_DB:-False}"
+DB_FILTER="${ODOO_DB_FILTER:-^${DB_NAME}$}"
+WITHOUT_DEMO="${ODOO_WITHOUT_DEMO:-all}"
+INIT_MODULES="${ODOO_INIT_MODULES:-base,web,contacts,crm,sale_management,account,analytic,project,hr,calendar,website,website_crm,mass_mailing,board,l10n_sa,masar_brand}"
+LOAD_LANG="${ODOO_LOAD_LANG:-ar_001,en_US}"
+
+if [[ -z "${DB_HOST}" || -z "${DB_USER}" ]]; then
+  echo "[masar] ERROR: Database host/user missing. Set DATABASE_URL (Railway Postgres)." >&2
+  exit 1
+fi
+
+export PGPASSWORD="${DB_PASSWORD}"
+
+echo "[masar] Waiting for PostgreSQL at ${DB_HOST}:${DB_PORT}..."
+for i in $(seq 1 90); do
+  if pg_isready -h "${DB_HOST}" -p "${DB_PORT}" -U "${DB_USER}" >/dev/null 2>&1; then
+    echo "[masar] PostgreSQL is ready."
+    break
+  fi
+  if [[ "$i" -eq 90 ]]; then
+    echo "[masar] ERROR: PostgreSQL not reachable after 90 attempts." >&2
+    exit 1
+  fi
+  sleep 2
+done
+
+# ---------------------------------------------------------------------------
+# Odoo refuses to start when its database user is the PostgreSQL superuser
+# 'postgres' (odoo/cli/server.py -> "Using the database user 'postgres' is a
+# security risk, aborting."). Railway's DATABASE_URL uses 'postgres', so when
+# that is the connection derived above, provision a dedicated least-privilege
+# role and hand it to Odoo instead. The superuser is used only for this
+# one-time provisioning.
+# ---------------------------------------------------------------------------
+ADMIN_USER="${DB_USER}"
+ADMIN_PASSWORD="${DB_PASSWORD}"
+
+if [[ "${DB_USER}" == "postgres" || -n "${ODOO_DB_USER:-}" ]]; then
+  APP_DB_USER="${ODOO_DB_USER:-masar}"
+  APP_DB_PASSWORD="${ODOO_DB_PASSWORD:-${ADMIN_PASSWORD}}"
+
+  echo "[masar] Ensuring dedicated database role '${APP_DB_USER}' (Odoo will not run as 'postgres')..."
+  PGPASSWORD="${ADMIN_PASSWORD}" psql -h "${DB_HOST}" -p "${DB_PORT}" -U "${ADMIN_USER}" -d postgres \
+    -v ON_ERROR_STOP=1 -v role="${APP_DB_USER}" -v pass="${APP_DB_PASSWORD}" <<'SQL'
+SELECT format('CREATE ROLE %I LOGIN CREATEDB PASSWORD %L', :'role', :'pass')
+WHERE NOT EXISTS (SELECT 1 FROM pg_roles WHERE rolname = :'role')
+\gexec
+SELECT format('ALTER ROLE %I LOGIN CREATEDB PASSWORD %L', :'role', :'pass')
+\gexec
+SQL
+else
+  APP_DB_USER="${DB_USER}"
+  APP_DB_PASSWORD="${DB_PASSWORD}"
+fi
+
+# Create the application database if missing (as admin), owned by the app role.
+DB_EXISTS="$(PGPASSWORD="${ADMIN_PASSWORD}" psql -h "${DB_HOST}" -p "${DB_PORT}" -U "${ADMIN_USER}" -d postgres -tAc "SELECT 1 FROM pg_database WHERE datname='${DB_NAME}'" || true)"
+if [[ "${DB_EXISTS}" != "1" ]]; then
+  echo "[masar] Creating PostgreSQL database '${DB_NAME}' owned by '${APP_DB_USER}'..."
+  PGPASSWORD="${ADMIN_PASSWORD}" psql -h "${DB_HOST}" -p "${DB_PORT}" -U "${ADMIN_USER}" -d postgres -v ON_ERROR_STOP=1 \
+    -c "CREATE DATABASE \"${DB_NAME}\" OWNER \"${APP_DB_USER}\" ENCODING 'UTF8' TEMPLATE template0;"
+else
+  echo "[masar] Ensuring database '${DB_NAME}' is owned by '${APP_DB_USER}'..."
+  PGPASSWORD="${ADMIN_PASSWORD}" psql -h "${DB_HOST}" -p "${DB_PORT}" -U "${ADMIN_USER}" -d postgres \
+    -c "ALTER DATABASE \"${DB_NAME}\" OWNER TO \"${APP_DB_USER}\";" || true
+fi
+
+# On PG 15+ the public schema is locked down; make the app role own it so Odoo
+# can create its tables.
+PGPASSWORD="${ADMIN_PASSWORD}" psql -h "${DB_HOST}" -p "${DB_PORT}" -U "${ADMIN_USER}" -d "${DB_NAME}" \
+  -c "ALTER SCHEMA public OWNER TO \"${APP_DB_USER}\";" \
+  -c "GRANT ALL ON SCHEMA public TO \"${APP_DB_USER}\";" || true
+
+# Hand the least-privilege role to Odoo and every later psql call.
+DB_USER="${APP_DB_USER}"
+DB_PASSWORD="${APP_DB_PASSWORD}"
+export PGUSER="${DB_USER}"
+export PGPASSWORD="${DB_PASSWORD}"
+
+export DB_HOST DB_PORT DB_USER DB_PASSWORD DB_NAME ADMIN_PASSWD HTTP_PORT WORKERS PROXY_MODE LIST_DB DB_FILTER ODOO_DATA_DIR LOGFILE
+python3 - <<'PY'
+import os
+from pathlib import Path
+template = Path(os.environ.get("ODOO_CONF_TEMPLATE", "/etc/odoo/odoo.conf.template")).read_text()
+mapping = {k: os.environ[k] for k in [
+    "DB_HOST","DB_PORT","DB_USER","DB_PASSWORD","DB_NAME","ADMIN_PASSWD",
+    "HTTP_PORT","WORKERS","PROXY_MODE","LIST_DB","DB_FILTER","ODOO_DATA_DIR","LOGFILE",
+]}
+out = Path(os.environ.get("ODOO_CONF_TEMPLATE", "/etc/odoo/odoo.conf.template")).read_text()
+for key, value in mapping.items():
+    out = out.replace("${" + key + "}", str(value))
+Path(os.environ.get("ODOO_RC", "/etc/odoo/odoo.conf")).write_text(out)
+print("[masar] Wrote", os.environ.get("ODOO_RC", "/etc/odoo/odoo.conf"))
+PY
+
+ODOO_BIN=("${ODOO_BIN_PATH}" -c "${ODOO_RC}")
+
+BASE_READY="$(psql -h "${DB_HOST}" -p "${DB_PORT}" -U "${DB_USER}" -d "${DB_NAME}" -tAc \
+  "SELECT 1 FROM information_schema.tables WHERE table_name='ir_module_module' LIMIT 1" 2>/dev/null || true)"
+
+if [[ "${BASE_READY}" != "1" || "${ODOO_FORCE_INIT:-0}" == "1" ]]; then
+  echo "[masar] Initializing clean Odoo database '${DB_NAME}' with modules: ${INIT_MODULES}"
+  "${ODOO_BIN[@]}" -d "${DB_NAME}" -i "${INIT_MODULES}" --without-demo="${WITHOUT_DEMO}" --load-language="${LOAD_LANG}" --stop-after-init
+  echo "[masar] Applying MASAR company / language / website bootstrap..."
+  "${ODOO_BIN_PATH}" shell -c "${ODOO_RC}" -d "${DB_NAME}" --stop-after-init < "${INIT_SCRIPT}"
+else
+  echo "[masar] Existing Odoo database detected — skipping -i init (persistence preserved)."
+  if [[ "${ODOO_UPDATE_MODULES:-0}" == "1" ]]; then
+    echo "[masar] Updating modules: ${ODOO_UPDATE_MODULE_LIST:-masar_brand}"
+    "${ODOO_BIN[@]}" -d "${DB_NAME}" -u "${ODOO_UPDATE_MODULE_LIST:-masar_brand}" --stop-after-init
+  fi
+fi
+
+# One-shot admin password reset. Set MASAR_ADMIN_PASSWORD to (re)set the login
+# password of the 'admin' user. A marker on the persistent volume ensures it
+# runs only once, so a password later changed in the UI is preserved. To force
+# another reset, delete the marker file or bump MASAR_ADMIN_PASSWORD_TAG.
+ADMIN_PW_MARKER="${ODOO_DATA_DIR}/.masar_admin_pw_${MASAR_ADMIN_PASSWORD_TAG:-1}"
+if [[ -n "${MASAR_ADMIN_PASSWORD:-}" && ! -f "${ADMIN_PW_MARKER}" ]]; then
+  echo "[masar] Applying admin password from MASAR_ADMIN_PASSWORD (one-shot)..."
+  if "${ODOO_BIN_PATH}" shell -c "${ODOO_RC}" -d "${DB_NAME}" --stop-after-init <<'PY'
+import os
+admin = env.ref('base.user_admin')
+admin.write({'password': os.environ['MASAR_ADMIN_PASSWORD']})
+env.cr.commit()
+print('[masar] admin password updated for login:', admin.login)
+PY
+  then
+    touch "${ADMIN_PW_MARKER}"
+  else
+    echo "[masar] WARNING: admin password reset failed; will retry next boot." >&2
+  fi
+fi
+
+if [[ "${1:-odoo}" == "odoo" ]]; then
+  echo "[masar] Starting Odoo 19 (MASAR) on port ${HTTP_PORT}..."
+  exec "${ODOO_BIN[@]}" -d "${DB_NAME}"
+fi
+
+exec "$@"

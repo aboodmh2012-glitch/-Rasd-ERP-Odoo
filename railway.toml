@@ -1,0 +1,16 @@
+[build]
+builder = "DOCKERFILE"
+dockerfilePath = "Dockerfile"
+
+[deploy]
+# Healthcheck is disabled: Odoo's /web/login redirects (303) which Railway
+# treats as unhealthy. If re-enabling, use a static asset that returns 200
+# without a session, e.g. healthcheckPath = "/web/static/img/favicon.ico".
+restartPolicyType = "ON_FAILURE"
+restartPolicyMaxRetries = 5
+numReplicas = 1
+
+# Persistent filestore / sessions for Odoo attachments
+[[mounts]]
+source = "masar_odoo_data"
+destination = "/var/lib/odoo"
