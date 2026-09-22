@@ -33,7 +33,7 @@
             "masar_brand/static/src/scss/masar_website.scss",
         ],
     },
-    "installable": true,
-    "application": false,
-    "auto_install": false,
+    "installable": True,
+    "application": False,
+    "auto_install": False,
 }
